@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* 바깥쪽 여백은 margin */
+            /* 안쪽 여백은 padding */
+            /* top bottom left right 개별 적용 가능하다. */
+            /* [top, bottom], [left, right] 2개씩 적용도 가능 */
+            /* 한번에 적용도 가능 */
+
+            /* 개별적용 */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            margin-right: 10px;
+
+            /* 4개를 한번에 - 순서는 top부터 시계방향 */
+            /* top, right, bottom, left 순 */
+            margin: 20px 20px 10px 20px;
+
+            /* 2개씩 묶어서 */
+            /* [top, bottom], [left, right] */
+            margin : 20px 30px;
+
+            /* 한번에 일괄 적용 */
+            /* 상하좌우 모두 30px */
+            margin : 30px;
+        }
+        .box {
+            color : beige;
+            width: 200px;
+            height: 200px; 
+
+            /* border-width: 5px;
+            border-style: solid;
+            border-color: rgb(150, 82, 82); */
+            border : 5px solid rgb(150, 82, 82);
+
+            text-align: center;
+            line-height: 200px;
+            
+        }
+        .bg-blue {
+            background-color: cornflowerblue;
+        }
+        .bg-orange {
+            background-color:orange;
+        }
+
+        .pd {
+            padding : 40px 10px;
+        }
+        .radius {
+            /* radius 모서리를 둥글게 */
+            border-radius: 10%;
+            /* 50%로 하면 원 모양 */
+            border-radius: 50%;
+        }
+        .shadow {
+            box-shadow: 15px 20px 40px #090d4cab;
+        }
+    </style>
+</head>
+<body>
+    <div class="box bg-blue radius shadow">box1</div>
+    <div class="box bg-orange pd">box2</div>
+</body>
+</html>
