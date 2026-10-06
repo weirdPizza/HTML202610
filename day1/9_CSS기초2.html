@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #title {color : blue;}
+        .subject {color : green;}
+        .core{background-color: lightgoldenrodyellow;}
+    </style>
+</head>
+<body>
+    <!-- 태그에 직접적으로 스타일을 부여하는 것은 상황에 맞게 써야 한다.  -->
+    <!-- 대부분 별로임 -->
+
+    <!-- class, id를 통해 스타일을 따로 부여하는 게 가능 -->
+    <!-- id는 중복 X, class는 중복 O  -->
+    <h3 id="title">과목 목록</h3>
+    <ul>
+        <li class="subject core">자바</li>
+        <li class="subject">오라클</li>
+        <li class="subject core">HTML</li>
+        <li class="subject"><span class="core">Javascript</span></li>
+        <!-- 입력한 만큼만의 공간에 css를 주고 싶어. 그러면 span으로 묶어버려라. -->
+    </ul>
+
+    <hr>
+    <h3>신청자 목록</h3>
+    <ol>
+        <li>홍길동</li>
+        <li>김영희</li>
+    </ol>
+
+</body>
+</html>

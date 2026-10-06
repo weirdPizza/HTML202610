@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, tr, th, td {
+            border: 2px solid black; 
+            /* 2px크기의 검은색 선(solid) */
+
+            border-collapse: collapse;
+            /* 선 하나로 */
+
+            padding : 5px 20px;
+            /* 상하 5px, 좌우 20px 여백 */
+
+            text-align: center;
+
+            background-color: antiquewhite;
+        } 
+        table {
+            border-width : 3px;
+        }
+        th {
+            background-color: darkseagreen;
+        }
+    </style>
+</head>
+<body>
+    <!-- table : 테이블(tr(행),   th, td(열) 등으로 구성) -->
+    <table>
+        <tr>
+            <th>학번</th>
+            <th>이름</th>
+            <th>학과</th>
+        </tr>
+        <tr>
+            <td>1234</td>
+            <td>홍길동</td>
+            <td>컴퓨터</td>
+        </tr>
+        <tr>
+            <td>1100</td>
+            <td>김철수</td>
+            <td>기계</td>
+        </tr>
+    </table>
+
+</body>
+</html>

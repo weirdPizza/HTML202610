@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        p {color : yellow;}
+    </style>
+</head>
+<body>
+    <!-- 
+    css를 적용하는 방법은 크게 3가지
+    1. 확장자 .css 파일로 정의하고 html에서 참조(링크) 하는 방법
+    프로젝트 단위로 작업할 때 가장 많이 사용되는 방법
+    화면별 공통성을 부여하기 위해 사용된다.
+    
+    2. head 태그 안에서 style 태그로 정의하는 방법
+    재사용을 하지 않거나, 개별단위로 작업할 때
+    화면단위(파일단위)로 학습하거나 화면별 통일성이 필요 없을 때
+
+    3. 태그 안에 직접적으로 style 속성을 부여하는 방법
+    가장 쉽고 빠른 방법이지만 가독성이 안좋음
+    남발하면 좋지 않다. 회사에서 막 쓰면 망함. 유지보수가 힘들다.
+    -->
+
+    <!-- 
+    스타일이 적용되는 우선 순위는 3(우선순위 제일 높음) -> 2 -> 1 
+    ex) td 태그에 .css로 회색, head에서 노란색, 태그 내 style로 오렌지색 작성하면 
+    최종적으로 오렌지색으로 변경됨
+    -->
+
+    <div>1번 스타일</div>
+    <p>2번 스타일</p>
+    <span style="color: red;">3번 스타일</span>
+
+    <div style="color: purple;">HTML 재밋다</div>
+</body>
+</html>
