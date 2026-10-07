@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 onclick="fnChange()" style="color:orange; font-style: italic; cursor: pointer;" id="txt">JAVASCRIPT 재밋다~~~~~~~~~~</h1>
+</body>
+</html>
+<script>
+    function fnChange(){
+        let obj = document.querySelector("#txt");
+        // let color = obj.style.color;
+        if(obj.style.color=="red"){
+            obj.style.color = color;
+            obj.style.fontStyle="italic";
+        }else{
+            color = obj.style.color;
+            obj.style.color = "red";
+            obj.style.fontStyle="normal";
+        }
+        
+        // 본래 font-style 이지만 자스는 마이너스로 인식하므로 fontStyle 카멜 표기법으로 접근
+    }
+</script>

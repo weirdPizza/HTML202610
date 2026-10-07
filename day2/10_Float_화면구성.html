@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 1000px;
+            margin : 20px auto;
+            
+        }
+        #header {
+            width: 100%;
+            height: 150px;
+            background-color: lightblue;
+            padding : 30px;
+            box-sizing: border-box;
+            /* 보더 + 패딩 + 마진 합쳐서 크기 값에 맞춰준다. */
+            border : 2px solid black;
+        }
+        #sidebar {
+            width: 300px;
+            height : 500px;
+            background-color:  palegoldenrod;
+            float: left;
+            padding : 30px;
+            border : 2px solid black;
+            box-sizing: border-box;
+        }
+        #contents {
+            width: 700px;
+            height : 500px;
+            background-color: palegreen;
+            float: left;
+            border : 2px solid black;
+            box-sizing: border-box;
+        }
+        #footer {
+            clear: both;
+            width: 100%;
+            height : 150px;
+            background-color: lightpink;
+            border : 2px solid black;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">헤더 영역~~ 검색어 같은 기능 넣기~</div>
+        <div id="sidebar">사이드 영역~~ 로그인이나 날씨 위젯 등 넣기~</div>
+        <div id="contents">메인 컨텐츠 영역~~ 주요 내용 넣기~</div>
+        <div id="footer">푸터 영역~~ 카피라이트, 연락처 이런 거 넣기~</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="fnSum2(500000,355666)">버튼1</button>
+</body>
+</html>
+<script>
+    // 자바스크립트의 함수(자바의 메소드)
+    // 리턴타입 없다
+    // 리턴하고 싶으면 그냥 하면 됨
+    // 파라미터 타입을 명시할 필요가 없다
+
+    function fnSum1(x, y){
+        // document.write(x+"와 "+y+"의 합은 "+(x+y)+"입니다.");
+        // 변수와 문자 결합 출력 시 역따옴표로 하면 훨씬 편해짐
+        document.write(`${x}와 ${y}의 합은 ${x+y}입니다.`);
+        return x+y;
+    };
+
+    function fnSum2(x, y){
+        let result = fnSum1(x, y);
+        console.log(`두 수의 합은 ${result}`);
+    }
+</script>

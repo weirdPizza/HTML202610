@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label>첫번째 숫자 : <input type="text" id="num1"></label>
+    </div>
+    <div>
+        <label>두번째 숫자 : <input type="text" id="num2"></label>
+    </div>
+    <div>
+        <button onclick="fnSum()">더하기 !</button>
+    </div>
+    <hr>
+    <div id="result">
+        
+    </div>
+
+</body>
+</html>
+<script>
+    // 중요함!!!!!!!!!!!!!!!!
+    // DOM : Document Object Model
+    function fnSum() {
+        // input의 value 옵션 값 갖고 옴.
+        let num1 = document.querySelector("#num1").value;
+        let num2 = document.querySelector("#num2").value;
+        // 문자를 숫자로 바꾸는 함수 => parseInt, Number
+        // alert(parseInt(num1) + parseInt(num2));
+
+        let result = document.querySelector("#result");
+        result.innerHTML ="결과 : <span style='color:blue;'>" + (parseInt(num1) + parseInt(num2)+"</span>");
+        // innerHtml == textContent 같은 기능이지만
+        // 다른 점 존재, textcontent는 태그마저 텍스트로 인식
+
+        // document.write는 기존 내용이 다 사라짐.
+        // document.write(parseInt(num1) + parseInt(num2));
+    }
+</script>

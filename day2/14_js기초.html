@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="fnTest()">click!</button>
+</body>
+</html>
+<script>
+    function fnTest(){
+        // 스크립트에서 바디에 뭔갈 보내주고 싶으면 document에게 보내면 됨
+        // body 영역에 괄호 안에 있는 값 작성
+        // 단 기존 body에 있는 값들 지우고 새롭게 작성(내부적으론 사실 지워지지 않음)
+        // document.write("Hello Html");
+        // document.write()는 기존 body 내용을 지우고 완전 새롭게 다시 씀.
+        // 그래서 자주 안씀.
+
+        for(let i=1; i<=10; i++) {
+            document.write("<div>"+i+"</div>"); 
+        }
+    };
+</script>

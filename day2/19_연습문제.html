@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div>
+        <label>텍스트 입력 : <input type="text" id="txt"></label>
+    </div>
+    <div>
+        <label>사이즈 입력 : <input type="text" id="size" placeholder="px 단위"></label>
+    </div>
+    <div>
+        <label>색상 입력 : <input type="text" id="color" placeholder="red, green, blue 등 영어로"></label>
+    </div>
+    <div>
+        <button onclick="fnMakeTxt()">생성!</button>
+    </div>
+    <hr>
+    <div id="result" style="font-size: 200px;">
+    </div>
+</body>
+</html>
+<script>
+    function fnMakeTxt(){
+        let txt = document.querySelector("#txt").value;
+        let size = document.querySelector("#size").value;
+        let color = document.querySelector("#color").value;
+
+        let result = document.querySelector("#result");
+        result.innerHTML = "<span style='fontSize:" + parseInt(size) +"px; color:"+color+";'>"+txt+"</span>";
+
+        // 쌤 코드
+        // result.style.fontSize = size +"px";
+        // result.style.color = color;
+        // result.innerHtml = text;
+    }
+</script>
