@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result"></div>
+</body>
+</html>
+<script>
+    let result = document.querySelector("#result");
+    let i=1;
+    let textSum="";
+    setInterval(function(){
+        textSum+=" "+i;
+        result.innerHTML=textSum;
+        i++;
+        if(i>=11){
+            textSum="";
+            i=1;
+        }
+    }, 1000);
+</script>

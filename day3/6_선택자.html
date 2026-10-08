@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 모든 div 태그 색상이 orange */
+        div {
+            color : orange;
+        }
+
+        /* div 태그 안에 모든 하위 요소 span태그에 적용 */
+        div span {
+            font-weight: bold;
+        }
+
+        /* 모든 div, span 태그 */
+        div, span {
+            font-size: 20px;
+        }
+
+        /* div 자식 span 태그에 적용 */
+        /* 손자뻘 태그에 적용이 안된다. 즉 직계 자식에게만 */
+        /* ex. div -> p -> span인 경우 span엔 적용 X */
+        div > span {
+            font-style: italic;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+        <span>HTML 즐겁다~~~~</span>
+        <p>
+            <span>js도 재밋다~~~</span>
+        </p>
+    </div>
+</body>
+</html>

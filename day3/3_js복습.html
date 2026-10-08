@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        이름 :<input type="text" id="userName">
+        <button onclick="fnTest()">클릭!</button>
+    </div>
+    <div id="result"></div>
+</body>
+</html>
+<script>
+    function fnTest(){
+        let name = document.querySelector("#userName").value;
+        let result = document.querySelector("#result")
+        result.style.fontSize = "50px";
+        result.style.color = "blue";
+        result.innerHTML = name + "님 환영합니다!";
+    }
+</script>

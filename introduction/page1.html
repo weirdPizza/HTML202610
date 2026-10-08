@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT ME</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            color : #121212;
+        }
+        #container{
+            width: 1100px;
+            height: 1300px;
+            margin: 100px auto;
+        }
+        nav { 
+            width:6%; 
+            /* 나머지 94퍼 */
+            height: 100%;
+            background-color: aqua;
+            float: left;
+        }
+        #page {
+            width: 94%;
+            height: 100%;
+            float: left;
+            box-sizing: border-box;
+            padding: 40px 0;
+            background-color: #E3F6D9;
+            border: 1px solid #121212;
+        }  
+        aside{
+            width: 38%;
+            height : 100%;
+            float: left;
+            border-right: 1px solid #121212;
+            box-sizing: border-box;
+            padding: 36px 30px;
+        }
+        aside img {
+            width: 100%;
+            background-color:#DBEDF1;
+            text-align: center;
+        }
+
+        aside #nameCard h1{
+            margin: 32px 0;
+            font-size: 32px;
+            text-align: right;
+        }
+        aside #nameCard #detailTitle{
+            width: 50%;
+            float:left;
+            text-align: left;
+            font-weight: 400;
+            font-size: 22px;
+            line-height: 36px;
+        }
+        aside #nameCard #detailContext{
+            width: 50%;
+            float:left;
+            font-weight: 200;
+            font-size: 22px;
+            text-align: right;
+            line-height: 36px;
+        }
+        aside #nameCard #sns {
+            clear: both;
+            padding: 52px;
+            text-align: center;
+        }
+        aside #nameCard a {
+            width: 90px;
+            height: 46px;
+            line-height: 36px;
+            text-align: center;
+            background-image: url(./snsIcon.png);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 400;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        #main {
+            width: 62%;
+            height : 100%;
+            background-color: lightcyan;
+            float: left;
+            box-sizing: border-box;
+            padding: 0 30px;
+        }
+        #main h1{
+            font-size: 64px;
+            text-align: right;
+        }
+
+        #main .subTitle{
+            width: 95%;
+            font-size: 28px;
+            float: left;
+            
+        }
+        #main .moreBtn{
+            width: 5%;
+            font-size: 28px;
+            float: left;
+            background-image: url(./Keyboard\ arrow\ down.png);
+        }
+        section p{
+            clear: both;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <nav>
+            <ul>
+                <li>FOMAL</li>
+                <li>CASUAL</li>
+                <li>GUESTBOOK</li>
+            </ul>
+        </nav>
+        <div id="page">
+                <!-- 여기 안에 aside랑 main 넣어야 border가 이쁘게 나올 거 같음 -->
+            <aside>
+                <img src="./profile_mouse.png" alt="프로필 쥐사진">
+                <div id="nameCard">
+                    <h1>Lee Eunjoo<h1>
+                    <div id="detailTitle">
+                        <div>date if birth</div>
+                        <div>tel</div>
+                        <div>email</div>
+                    </div>
+                    <div id="detailContext">
+                        <div>2000.05.21</div>
+                        <div>010-1111-2222</div>
+                        <div>atvet@naver.com</div>
+                    </div>
+                    <div id="sns">
+                        <a href="#">SNS</a>
+                    </div>
+                </div>
+            </aside>
+
+            <div id="main">
+                <h1>ABOUT ME</h1>
+
+                <!-- SELF-INTRODUCTION -->
+                <section>
+                    <div>
+                        <h2 class="subTitle">SELF-INTRODUCTION</h2> 
+                        <div class="moreBtn"></button>
+                    </div>
+                    <p><mark>프로그래밍</mark>에 관심이 많습니다. <br>현재 열심히 공부하며 코딩 중!</p>  
+                </section>
+
+                <!-- EXPERIENCE -->
+                <section>
+                    <div>
+                        <h2 class="subTitle">EXPERIENCE</h2> 
+                        <div class="moreBtn">↓</button>
+                    </div>
+
+                    <ul>
+                        <li>프론트엔드
+                            <ul>
+                                <li>HTML/CSS/JAVASCRIPT </li>
+                                <li>웹 페이지 잘 만든다 </li>
+                                <li>다 잘함</li> 
+                            </ul>
+                        </li>
+                        <li>백엔드
+                            <ul>
+                                <li>자바 잘함 </li>
+                                <li>오라클 더 잘함</li>
+                            </ul>                        
+                        </li>
+                    </ul>        
+                </section>
+                
+                <!-- TOOLS -->
+                <section>
+                    <div>
+                        <h2 class="subtitle">보유 기술</h2>
+                        <li style="list-style: none;">
+                    </div>
+    
+                        <ul>
+                            <li>자바 </li>
+                            <li>오라클</li>
+                        </ul>                        
+                    </li> 
+                </section>
+
+                <!-- EDUCATION -->
+                <section>
+                    <div>
+                        <h2 class="subtitle">Education</h2>
+                        <div class="moreBtn">↓</button>
+                    </div>
+                    <table>
+                    <caption>학력 사항</caption>
+                    <thead>
+                        <tr>
+                            <th>출신학교</th>
+                            <th>전공</th>
+                            <th>기간</th>
+                            <th>구분</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>좋은대학교</td>
+                            <td>좋은학과</td>
+                            <td>2010.3 ~ 2013.2</td>
+                            <td>졸업</td>
+                        </tr>
+                        <tr>
+                            <td>꽤좋은고등학교</td>
+                            <td> - </td>
+                            <td>2007.3 ~ 2009.2</td>
+                            <td>졸업</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </section>
+
+                <!-- CERTIFICATIONS -->
+                <section>
+                    <div>
+                        <h2 class="subtitle">CERTIFICATIONS</h2>
+                        <div class="moreBtn">↓</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

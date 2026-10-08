@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input태그!</title>
+</head>
+<body>
+    <!-- 영역을 잡는 fieldset, 영역의 타이틀 legend -->
+    <fieldset>
+        <legend>회원가입</legend>
+        <div>
+            <!-- input 태그의 기본 type은 text (생략 가능) -->
+            <label>아이디 : <input id="userId" type="text" autofocus placeholder="아이디를 입력해주세요."></label>
+            <input type="button" value="중복체크">
+        </div>
+        <div>
+            <label>비밀번호 : <input id="pwd1" type="password" placeholder="비밀번호를 입력해주세요."></label>
+        </div>
+        <div>
+            <label>비밀번호 확인 : <input id="pwd2" type="password" placeholder="같은 비밀번호를 입력해주세요."></label>
+        </div>
+        <div>
+            <!-- 골뱅이와 점 없으면 이메일 형식 아니라 알려줌. 근데 한계가 있어서 input email은 잘 안쓰긴 해. -->
+            <!-- 나중에 정규식으로 대체하게 될 운명 -->
+            <label>이메일 : <input id="email" type="email"></label>
+            <!-- 나이를 입력할 때 input number 써도 돼? ㄴㄴ number는 소수점의 점 허용, 지수의 e 허용해서 안 씀. 정규식으로 대체함. -->
+        </div>
+        <div>
+            <!-- name으로 묶어야 그룹 가능 -->
+            성별 :
+            <label><input type="radio" name="gender" value="M">남자</label>
+            <label><input type="radio" name="gender" value="F">여자</label>
+        </div>
+
+        <div>
+            자기소개 : 
+            <div>
+                <textarea id="intro" cols="50" rows="8" placeholder="자기소개를 입력하세요."></textarea>
+            </div>
+        </div>
+
+        <div>
+            <button onclick="fnJoin()">회원가입</button>
+        </div>
+    </fieldset>
+</body>
+</html>
+<script>
+    function fnJoin(){
+        // 가정 : db로 회원정보를 보내기전에 검증
+        // id => 6글자 이상
+        // pwd => 4글자 이상, 비밀번호와 비밀번호 확인은 같아야 함
+        // 이메일 => 빈 값 금지
+        let id = document.getElementById("userId").value;
+        let pwd1 = document.querySelector("#pwd1").value;
+        let pwd2 = document.getElementById("pwd2").value;
+        let email = document.getElementById("email").value;
+
+        // if(id.length<6){
+        //     alert("아이디를 6글자 이상 입력해주세요.");
+        //     return;
+        // }
+        // if(pwd1.length<4){
+        //     alert("비밀번호는 4글자 이상 입력해주세요.");
+        //     return;
+        // }
+        // if(pwd1!=pwd2){
+        //     alert("비밀번호가 서로 다릅니다.");
+        //     return;
+        // }
+        // if(email.length <1){
+        //     alert("이메일은 필수로 입력해주세요");
+        //     return;
+        // }
+
+        let gender = document.querySelector("input[name='gender']:checked");
+        if(gender==null){
+            alert("성별을 선택하세요.");
+            return;
+        }
+        console.log(gender.value)
+        alert("가입 축하드립니다!");
+
+    }
+</script>

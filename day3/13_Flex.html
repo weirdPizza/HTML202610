@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            /* width: 1000px; */
+            border: 2px solid black;
+            background-color: #eee;
+            display: flex;
+        }
+        .box {
+            width: 100px;
+            margin : 10px;
+            background-color : orange;
+            color : white;
+            text-align : center;
+        }
+
+        .dir1 {
+            /* 디폴트, 왼쪽에서 오른쪽으로 정렬 */
+            flex-direction: row;
+        }
+        .dir2 {
+            flex-direction: row-reverse;
+        }
+        .dir3 {
+            flex-direction: column;
+        }
+        .dir4 {
+            
+            flex-direction: column-reverse;
+        }
+
+        .flow1 {
+            /* 방향이랑 wrap을 한번에 */
+            flex-flow: row wrap;
+        }
+        .flow2 {
+            flex-flow: row nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="flow1">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+</body>
+</html>

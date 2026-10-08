@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* div 태그 다음에 오는 첫번째 p태그에 적용 */
+        /* 자식 태그 X, 같은 레벨에 있는 형제 태그 O */
+        div + p {
+            color : orange;
+        }
+
+        /* div 태그 다음에 오는 모든 p태그에 적용 */
+        /* 자식 태그 X, 같은 레벨에 있는 형제 태그 O */
+        div ~ p {
+            font-weight: bold;
+        }
+
+        /* p태그 중에 id 속성을 가진 태그한테 적용 */
+        p[id] {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div>Hello Html</div>
+    <p>재밌다~~~</p>
+    <p id="test">즐겁다~~</p>
+    <div>
+        <p>ㅎㅎㅎㅎ</p>
+    </div>
+    <p>ㅋㅋㅋㅋㅋ</p>
+</body>
+</html>
