@@ -11,14 +11,36 @@
             color : #333;
             font-weight: 300px;
             font-family: 'Roboto';
+            box-sizing: border-box;
+        }
+        html {
+            overflow-y: scroll;
         }
         a {text-decoration: none;}
+        .btn {
+            border: none;
+            text-indent: -9999px;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 32px;
+            height: 32px;
+            float: left;
+            background-size: cover;
+            background-color: #E3F6D9;
+            border: none;
+        }
         #container{
             width: 980px;
             height: auto;
             margin: 100px auto;
             overflow: visible;
             padding-bottom: 50px;
+        }
+        #container::after{
+            content: "";
+            display: block;
+            clear: both;
         }
         nav { 
             width:6%; 
@@ -72,16 +94,12 @@
             top: -60px;
             z-index: 1;
         }
-        .btn {
-            text-indent: -9999px;
-            cursor: pointer;
-        }
         #page {
             width: 94%;
             height: auto;
             float: left;
             box-sizing: border-box;
-            padding: 40px 0;
+            padding: 30px;
             background-color: #FDEAC5;
             border: 1px solid #333;
             box-shadow: 20px 20px 0px #DFDFDF;
@@ -90,28 +108,16 @@
 
         }  
         
-
-        #main {
-            border-left: 1px solid #333;
-            width: 100%;
-            min-height : 800px;
-
-            float: left;
-            box-sizing: border-box;
-            padding: 0 30px;
-        }
-        #main h1{
+        h1{
             font-size: 64px;
             text-align: right;
             margin-bottom: 12px;
-            
         }
-        #main > div{
+        #main{
             border: 1px solid black;
             background-color: white;
-            margin: 10px;
             height: auto;
-            /* TEST 나중에 auto로 수정 */
+            margin: 10px;
         }
         
         table {
@@ -131,39 +137,55 @@
         }
 
         #personality {
-            /* padding: 20px 28px; */
+            padding: 20px 28px;
             background-image: url(quoteBg.png);
-            background-size: cover;
+            background-size: 100%;
             background-position: center;
+             /* 애매하네.. 수정해야 할 듯 */
         }
 
         #favorite{
             padding: 0px;
             background-size: cover;
+            background-position: center;
+        }
+        .fMenu span{
+            font-weight: 600;
         }
         .fMenu:hover {
             background-color: #FDEAC5;
             cursor: pointer;
         }
-        
+        .addEx{
+            font-size: 16px;
+        }
         /* 서로 다른 tr에 있음. 형제 선택자 ~가 있긴 하지만 */
         /* favorite이 drama, movie menu보다 먼저 나오므로  */
         /* ~로 선택 못함. 따라서 has()를 이용하면 가능 */
         table:has(#mangaMenu:hover) #favorite {
             background-image: url("./hunter.png");
+            text-indent: -9999px;
         }
 
         table:has(#dramaMenu:hover) #favorite {
             background-image: url("./blackmirror.png");
+            text-indent: -9999px;
         }
 
         table:has(#movieMenu:hover) #favorite {
             background-image: url("./heredity.png");
+            text-indent: -9999px;
         }
 
         table:has(#gameMenu:hover) #favorite {
             background-image: url("./splatoon.png");
+            text-indent: -9999px;
         }
+        /* 선 겹쳐서 두꺼워지는 거 방지 */
+        table:not(div section:last-child table){
+            margin-bottom: -1px;
+        }
+
 
         /* photoSection */
         section:last-child #photoArea{
@@ -191,6 +213,7 @@
         }
         .photoBox:first-child > div{
             background-image: url(./photo1.JPG);
+            
         }
         .photoBox:nth-child(2) > div{
             background-image: url(./photo2.jpg);
@@ -201,24 +224,6 @@
 
 
 
-        /* CLOCK */
-        #clock{
-            position: fixed;
-            background-image: url(./clock.png);
-            width: 228px;
-            height: 108px;
-            bottom: 120px;
-            right: 200px;
-            z-index: 150;
-            font-size: 30px;
-        }
-
-                /* 작은 모니터 */
-        @media screen and (max-width : 1300px){ 
-            #clock{
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
@@ -235,12 +240,11 @@
         </nav>
         <div id="page">
                 <!-- 여기 안에 aside랑 main 넣어야 border가 이쁘게 나올 거 같음 -->
-            <div id="main">
                 <h1>ABOUT ME</h1>
-                <div>
+                <div id="main">
                     <!-- personality -->
                     <section>
-                        <table>
+                        <table style="margin-bottom: -1px;">
                             <tr>
                                 <th style="width: 268px;">PERSONALITY</th>
                                 <td style="background-color: lemonchiffon;"></td>
@@ -266,20 +270,22 @@
                             </tr>
                             <tr>
                                 <td>manga</td>
-                                <td id="mangaMenu" class="fMenu" >헌터X헌터</td>
-                                <td id="favorite" colspan="2" rowspan="4" style="background-color:#DBEDF1; width: 280px;"></td>
+                                <td id="mangaMenu" class="fMenu" >헌터X헌터 <span>></span></td>
+                                <td id="favorite" colspan="2" rowspan="4" style="background-color:#DBEDF1; width: 280px;">
+                                    <span class="addEx">※ 왼쪽 메뉴 호버 시 이미지 표시</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>DRAMA</td>
-                                <td id="dramaMenu" class="fMenu">블랙미러</td>
+                                <td id="dramaMenu" class="fMenu">블랙미러 <span>></span></td>
                             </tr>
                             <tr>
                                 <td>MOVIE</td>
-                                <td id="movieMenu" class="fMenu">유전</td>
+                                <td id="movieMenu" class="fMenu">유전 <span>></span></td>
                             </tr>
                             <tr>
                                 <td>GAME</td>
-                                <td id="gameMenu" class="fMenu">SPLATOON</td>
+                                <td id="gameMenu" class="fMenu">SPLATOON <span>></span></td>
                             </tr>
                         </table>
                     </section>
@@ -310,7 +316,7 @@
                         <table>
                             <tr>
                                 <td style="background-color: lemonchiffon;"></td>
-                                <th style="width: 356px">찍은 풍경사진들</th>
+                                <th style="width: 340px">찍은 풍경사진들</th>
                             </tr>
                             <tr id="photoArea">
                                 <td colspan="2">
@@ -328,7 +334,10 @@
                         </table>
                     </section>
                 </div>
-            </div>
+            <!-- <div id="main">
+                
+                
+            </div> -->
         </div>
     </div>
     <div id="clock">배우면 넣어 시계</div>
@@ -339,31 +348,4 @@
         // active 클래스를 있으면 빼고, 없으면 넣어줍니다.
         document.querySelector(".starBtn").classList.toggle("active");
     }
-
-
-
-    const toggleBtns = document.querySelectorAll('.moreBtn');
-
-    toggleBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // 클릭한 버튼이 속한 .section-box를 찾고, 그 안의 .sectionContext를 찾습니다.
-            const section = e.target.closest('section');
-            const sectionContext = section.querySelector('.sectionContext');
-        
-            // active 클래스를 토글합니다.
-            sectionContext.classList.toggle('active');
-
-            if(section.querySelector('.moreBtn').classList.toggle('active')){
-                section.querySelector('.moreBtn').style.rotate = "180deg"; 
-                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
-            }else{
-                section.querySelector('.moreBtn').style.rotate = "0deg"; 
-                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
-            }
-        });
-    });
-    
 </script>
-<!-- 
-transform-origin: center; 
-            rotate: 180deg -->

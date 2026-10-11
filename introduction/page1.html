@@ -10,6 +10,11 @@
             padding: 0px;
             color : #333;
             font-family: 'Roboto';
+            /* box-sizing: border-box; */
+        }
+        html {
+            /* 스크롤바 크기 무시하고 양쪽 여백 같게 */
+            overflow-y: scroll;
         }
         a {text-decoration: none;}
         .btn {
@@ -85,7 +90,7 @@
             height: auto;
             float: left;
             box-sizing: border-box;
-            padding: 40px 0;
+            padding: 30px 0;
             background-color: #E3F6D9;
             border: 1px solid #333;
             box-shadow: 20px 20px 0px #DFDFDF;
@@ -124,7 +129,7 @@
             display: block;
         }
         aside #nameCard div{
-            font-size: 22px;
+            font-size: 20px;
             line-height: 36px;
         }
         aside #nameCard h1{
@@ -138,7 +143,7 @@
             text-align: left;
             font-weight: 400;
         }
-        aside #nameCard #detailContext{
+        aside #nameCard #detailContent{
             width: 60%;
             float:left;
             font-weight: 200;
@@ -152,13 +157,12 @@
         aside #nameCard a {
             width: 90px;
             height: 46px;
-            line-height: 44px;
+            line-height: 36px;
             text-align: center;
             background-image: url(./snsIcon.png);
             font-size: 24px;
-            font-weight: 400;
-            display: inline-block;
-            cursor: pointer;
+            font-weight: 500;
+            display: inline-block;     
         }
 
         #main {
@@ -201,7 +205,7 @@
             clear: both;
         }
         
-        #main .sectionContext{
+        #main .sectionContent{
             font-size: 20px;
             font-weight: 300;
             background-color: rgba(255, 255, 255, 0.9);
@@ -210,7 +214,7 @@
             margin-bottom: 24px;
             display: none;
         }
-        #main .sectionContext.active{
+        #main .sectionContent.active{
             display: block;
         }
 
@@ -305,18 +309,22 @@
                 -ms-border-radius: 0 2px 2px 0;
                     border-radius: 0 2px 2px 0;
         }
+        .addEx{
+            font-size: 16px;
+            text-align: right;
+        }
         
         /* Education 테이블 */
-        .sectionContext table,th,td,tr {
+        .sectionContent table,th,td,tr {
             border: 1px solid #333;
             border-collapse: collapse;
             padding: 5px;
             text-align: center;
         }
-        .sectionContext table{
+        .sectionContent table{
             width: 100%;
         }
-        .sectionContext th{
+        .sectionContent th{
             background-color: lemonchiffon;
             font-weight: 400;
         }
@@ -362,7 +370,7 @@
         }
 
         
-        /* CLOCK */
+        /* CLOCK 배우면 넣을 것!!*/
         #clock{
             position: fixed;
             background-image: url(./clock.png);
@@ -372,14 +380,10 @@
             right: 200px;
             z-index: 150;
             font-size: 30px;
+            display: none;
         }
 
-                /* 작은 모니터 */
-        @media screen and (max-width : 1300px){ 
-            #clock{
-                display: none;
-            }
-        }
+
     </style>
 </head>
 <body>
@@ -406,7 +410,7 @@
                         <div>tel</div>
                         <div>email</div>
                     </div>
-                    <div id="detailContext">
+                    <div id="detailContent">
                         <div>2000.05.21</div>
                         <div>010-1111-2222</div>
                         <div>atvet@naver.com</div>
@@ -426,7 +430,7 @@
                         <h2 class="subTitle">SELF-INTRODUCTION</h2> 
                         <button class="moreBtn btn">더보기 버튼</button>
                     </div>
-                    <div class="sectionContext">
+                    <div class="sectionContent">
                         <mark>프로그래밍</mark>에 관심이 많습니다. <br>현재 열심히 공부하며 코딩 중!
                     </div> 
                 </section>
@@ -437,7 +441,7 @@
                         <h2 class="subTitle">EXPERIENCE</h2> 
                         <button class="moreBtn btn">더보기 버튼</button>
                     </div>
-                    <div class="sectionContext">
+                    <div class="sectionContent">
                         <ul class="exList">
                             <li>프론트엔드
                                 <ul>
@@ -463,7 +467,7 @@
                         <h2 class="subTitle">TOOLS</h2>
                         <button class="moreBtn btn">더보기 버튼</button>
                     </div>
-                    <div class="graph-wrapper sectionContext">
+                    <div class="graph-wrapper sectionContent">
                         <div class="graph-item">
                         <div class="label">자바</div>
                         <div class="bar-container">
@@ -498,6 +502,7 @@
                             <div class="bar" style="width: 85%;"><span>85%</span></div>
                         </div>
                     </div>
+                    <div class="addEx">※ 그래프 호버 시 % 표시</div>
                 </div>
 
                 </section>
@@ -508,7 +513,7 @@
                         <h2 class="subTitle">EDUCATION</h2>
                         <button class="moreBtn btn">더보기 버튼</button>
                     </div>
-                    <div class="sectionContext">
+                    <div class="sectionContent">
                         <table>
                             <thead>
                                 <tr>
@@ -543,7 +548,7 @@
                         <h2 class="subTitle">CERTIFICATIONS</h2>
                         <button class="moreBtn btn">더보기 버튼</button>
                     </div>
-                    <div class="sectionContext" id="certifications">   
+                    <div class="sectionContent" id="certifications">   
                         <div class="track">
                             <div>ITQ</div>
                             <div>웹디자인<br> 기능사</div>
@@ -559,7 +564,7 @@
             </div>
         </div>
     </div>
-    <div id="clock">배우면 넣어 시계</div>
+    <div id="clock">배우면 넣어 시계 ☒</div>
 </body>
 </html>
 <script>
@@ -574,12 +579,12 @@
 
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // 클릭한 버튼이 속한 .section-box를 찾고, 그 안의 .sectionContext를 찾습니다.
+            // 클릭한 버튼이 속한 .section-box를 찾고, 그 안의 .sectionContent를 찾습니다.
             const section = e.target.closest('section');
-            const sectionContext = section.querySelector('.sectionContext');
+            const sectionContent = section.querySelector('.sectionContent');
         
             // active 클래스를 토글합니다.
-            sectionContext.classList.toggle('active');
+            sectionContent.classList.toggle('active');
 
             if(section.querySelector('.moreBtn').classList.toggle('active')){
                 section.querySelector('.moreBtn').style.rotate = "180deg"; 
