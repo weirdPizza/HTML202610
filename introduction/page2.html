@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT ME</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            color : #333;
+            font-weight: 300px;
+            font-family: 'Roboto';
+        }
+        a {text-decoration: none;}
+        #container{
+            width: 980px;
+            height: auto;
+            margin: 100px auto;
+            overflow: visible;
+            padding-bottom: 50px;
+        }
+        nav { 
+            width:6%; 
+            /* 나머지 94퍼 */
+            float: left;
+        }
+        nav ul li{
+            display: inline-block;
+            width: 64px;
+            height: 272px;
+            position:relative;
+            left:-3px;
+        }
+        nav ul li a{
+            font-size: 28px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            line-height: 64px;
+            margin: 40px 0;
+            float:left;
+        }
+        nav ul li .starBtn{
+            width: 36px;
+            height: 36px;
+            float:left;
+            margin:10px;
+            background-image: url(./Star\ border.png);
+            background-size: cover;
+            background-color: #E3F6D9;
+            border: none;
+        }
+        .starBtn.active {
+            background-image: url(./Star\ rate.png);
+        }
+        nav ul li::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        nav ul li:first-child{
+            background-image: url(./menu1.png);
+            z-index: 10;
+        }
+        nav ul li:nth-child(2){
+            background-image: url(./menu2.png);
+            top: -30px;
+            z-index: 100;
+        }
+        nav ul li:last-child{
+            background-image: url(./menu3.png);
+            top: -60px;
+            z-index: 1;
+        }
+        .btn {
+            text-indent: -9999px;
+            cursor: pointer;
+        }
+        #page {
+            width: 94%;
+            height: auto;
+            float: left;
+            box-sizing: border-box;
+            padding: 40px 0;
+            background-color: #FDEAC5;
+            border: 1px solid #333;
+            box-shadow: 20px 20px 0px #DFDFDF;
+            z-index: 50;
+            position: relative;
+
+        }  
+        
+
+        #main {
+            border-left: 1px solid #333;
+            width: 100%;
+            min-height : 800px;
+
+            float: left;
+            box-sizing: border-box;
+            padding: 0 30px;
+        }
+        #main h1{
+            font-size: 64px;
+            text-align: right;
+            margin-bottom: 12px;
+            
+        }
+        #main > div{
+            border: 1px solid black;
+            background-color: white;
+            margin: 10px;
+            height: auto;
+            /* TEST 나중에 auto로 수정 */
+        }
+        
+        table {
+            width: 100%;
+        }
+        table, tr, th, td:not(img){
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding : 32px 20px;
+            font-size: 20px;
+            font-weight: 300;
+            text-align: center;
+        }
+        
+        th{
+            font-weight: 400;
+        }
+
+        #personality {
+            /* padding: 20px 28px; */
+            background-image: url(quoteBg.png);
+            background-size: cover;
+            background-position: center;
+        }
+
+        #favorite{
+            padding: 0px;
+            background-size: cover;
+        }
+        .fMenu:hover {
+            background-color: #FDEAC5;
+            cursor: pointer;
+        }
+        
+        /* 서로 다른 tr에 있음. 형제 선택자 ~가 있긴 하지만 */
+        /* favorite이 drama, movie menu보다 먼저 나오므로  */
+        /* ~로 선택 못함. 따라서 has()를 이용하면 가능 */
+        table:has(#mangaMenu:hover) #favorite {
+            background-image: url("./hunter.png");
+        }
+
+        table:has(#dramaMenu:hover) #favorite {
+            background-image: url("./blackmirror.png");
+        }
+
+        table:has(#movieMenu:hover) #favorite {
+            background-image: url("./heredity.png");
+        }
+
+        table:has(#gameMenu:hover) #favorite {
+            background-image: url("./splatoon.png");
+        }
+
+        /* photoSection */
+        section:last-child #photoArea{
+            height: 200px;
+        }
+        .photoBox {
+            width: 30%;
+            /* 나머지 10% / 6 = 1.6 */
+            height: 240px;
+            border: 1px solid black;
+            float: left;
+            background-color: white;
+            box-shadow: 8px 8px 0px #DFDFDF;
+            box-sizing: border-box;
+            margin: 1.6%;
+        }
+        .photoBox > div{
+            margin: 5%;
+            width: 90%;
+            height: 72%;
+            border: 1px solid black;
+            margin-top: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+        .photoBox:first-child > div{
+            background-image: url(./photo1.JPG);
+        }
+        .photoBox:nth-child(2) > div{
+            background-image: url(./photo2.jpg);
+        }
+        .photoBox:last-child > div {
+            background-image: url(./photo3.JPG);
+        }
+
+
+
+        /* CLOCK */
+        #clock{
+            position: fixed;
+            background-image: url(./clock.png);
+            width: 228px;
+            height: 108px;
+            bottom: 120px;
+            right: 200px;
+            z-index: 150;
+            font-size: 30px;
+        }
+
+                /* 작은 모니터 */
+        @media screen and (max-width : 1300px){ 
+            #clock{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <nav>
+            <ul>
+                <li>
+                    <a href="./page1.html">FOMAL</a>
+                    <button class="starBtn btn" onclick="fnToggleStar()">별</button>
+                </li>
+                <li><a href="./page2.html">CASUAL</a></li>
+                <li><a href="./page3.html">GUESTBOOK</a></li>
+            </ul>
+        </nav>
+        <div id="page">
+                <!-- 여기 안에 aside랑 main 넣어야 border가 이쁘게 나올 거 같음 -->
+            <div id="main">
+                <h1>ABOUT ME</h1>
+                <div>
+                    <!-- personality -->
+                    <section>
+                        <table>
+                            <tr>
+                                <th style="width: 268px;">PERSONALITY</th>
+                                <td style="background-color: lemonchiffon;"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td style="width: 80px; background-color: #E3F6D9;"></td>
+                                <td id="personality">
+                                    <p>무슨 말로 설명을 해야할지 잘 모르겠음...<br> 
+                                    MBTI가 INTP이 나오긴 했음...그치만 테스트할 때마다
+                                    바뀜...제법무아</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+
+                     <!-- FAVORITE -->
+                    <section>
+                        <table>
+                            <tr>
+                                <th rowspan="5">FAVORITE</th> 
+                            </tr>
+                            <tr>
+                                <td>manga</td>
+                                <td id="mangaMenu" class="fMenu" >헌터X헌터</td>
+                                <td id="favorite" colspan="2" rowspan="4" style="background-color:#DBEDF1; width: 280px;"></td>
+                            </tr>
+                            <tr>
+                                <td>DRAMA</td>
+                                <td id="dramaMenu" class="fMenu">블랙미러</td>
+                            </tr>
+                            <tr>
+                                <td>MOVIE</td>
+                                <td id="movieMenu" class="fMenu">유전</td>
+                            </tr>
+                            <tr>
+                                <td>GAME</td>
+                                <td id="gameMenu" class="fMenu">SPLATOON</td>
+                            </tr>
+                        </table>
+                    </section>
+
+                    <!-- HOBBIES -->
+                    <section>
+                        <table>
+                            <tr>
+                                <td colspan="5" style="background-color: #DBEDF1;"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="5">
+                                    HOBBIES
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>게임하기</td>
+                                <td>유튜브보기</td>
+                                <td>그림그리기</td>
+                                <td>스터디하기</td>
+                                <td>풍경사진찍기</td>
+                            </tr>
+                        </table>
+                    </section>
+
+                    <!-- PHOTOS -->
+                    <section>
+                        <table>
+                            <tr>
+                                <td style="background-color: lemonchiffon;"></td>
+                                <th style="width: 356px">찍은 풍경사진들</th>
+                            </tr>
+                            <tr id="photoArea">
+                                <td colspan="2">
+                                    <div class="photoBox">
+                                        <div></div>
+                                    </div>
+                                    <div class="photoBox">
+                                        <div></div>
+                                    </div>
+                                    <div class="photoBox">
+                                        <div></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="clock">배우면 넣어 시계</div>
+</body>
+</html>
+<script>
+    function fnToggleStar(){
+        // active 클래스를 있으면 빼고, 없으면 넣어줍니다.
+        document.querySelector(".starBtn").classList.toggle("active");
+    }
+
+
+
+    const toggleBtns = document.querySelectorAll('.moreBtn');
+
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // 클릭한 버튼이 속한 .section-box를 찾고, 그 안의 .sectionContext를 찾습니다.
+            const section = e.target.closest('section');
+            const sectionContext = section.querySelector('.sectionContext');
+        
+            // active 클래스를 토글합니다.
+            sectionContext.classList.toggle('active');
+
+            if(section.querySelector('.moreBtn').classList.toggle('active')){
+                section.querySelector('.moreBtn').style.rotate = "180deg"; 
+                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
+            }else{
+                section.querySelector('.moreBtn').style.rotate = "0deg"; 
+                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
+            }
+        });
+    });
+    
+</script>
+<!-- 
+transform-origin: center; 
+            rotate: 180deg -->

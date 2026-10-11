@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT ME</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            color : #333;
+            font-family: 'Roboto';
+        }
+        a {text-decoration: none;}
+        #container{
+            width: 980px;
+            height: auto;
+            margin: 100px auto;
+            overflow: visible;
+            padding-bottom: 50px;
+        }
+        nav { 
+            width:6%; 
+            /* 나머지 94퍼 */
+            float: left;
+        }
+        nav ul li{
+            display: inline-block;
+            width: 64px;
+            height: 272px;
+            position:relative;
+            left:-3px;
+        }
+        nav ul li a{
+            font-size: 28px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            line-height: 64px;
+            margin: 40px 0;
+            float:left;
+        }
+        nav ul li .starBtn{
+            width: 36px;
+            height: 36px;
+            float:left;
+            margin:10px;
+            background-image: url(./Star\ border.png);
+            background-size: cover;
+            background-color: #E3F6D9;
+            border: none;
+        }
+        .starBtn.active {
+            background-image: url(./Star\ rate.png);
+        }
+        nav ul li::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        nav ul li:first-child{
+            background-image: url(./menu1.png);
+            z-index: 30;
+        }
+        nav ul li:nth-child(2){
+            background-image: url(./menu2.png);
+            top: -30px;
+            z-index: 0;
+        }
+        nav ul li:last-child{
+            background-image: url(./menu3.png);
+            top: -60px;
+            z-index: 100;
+        }
+        #page {
+            width: 94%;
+            height: auto;
+            float: left;
+            box-sizing: border-box;
+            padding: 40px 0;
+            background-color: #DBEDF1;
+            border: 1px solid #333;
+            box-shadow: 20px 20px 0px #DFDFDF;
+            z-index: 50;
+            position: relative;
+
+        }  
+        
+
+        #main {
+            border-left: 1px solid #333;
+            width: 100%;
+            min-height : 800px;
+
+            float: left;
+            box-sizing: border-box;
+            padding: 0 30px;
+        }
+        #main h1{
+            font-size: 64px;
+            text-align: right;
+            margin-bottom: 12px;
+            
+        }
+        #main .sectionTitle{
+            width: 100%;
+            line-height: 60px;
+            border-bottom : 1px solid #333;
+        }
+        #main .sectionTitle .subTitle{
+            width: 476px;
+            font-size: 28px;
+            float: left;
+            font-weight: 400;
+        }
+        .btn {
+            text-indent: -9999px;
+            cursor: pointer;
+        }
+        .sectionTitle .moreBtn {
+            float: left;
+            background-image: url(./Keyboard\ arrow\ down.png);
+            background-color: #E3F6D9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            margin : 14px 0;
+            font-size: 12px;
+            transition-duration: 0.5s;
+        }
+        .sectionTitle::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        
+        #main .sectionContext{
+            font-size: 20px;
+            font-weight: 300;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding : 16px 20px;
+            line-height: 28px;
+            margin-bottom: 24px;
+            display: none;
+        }
+        #main .sectionContext.active{
+            display: block;
+        }
+
+
+        #main mark {
+            background-color:lemonchiffon;
+            font-weight: 400;
+        }
+        #main .exList {
+            margin-left: 20px;
+        }
+        #main .exList>li:first-child {
+            margin-bottom: 8px;
+        }
+        #main .exList li>ul li{
+            margin-left: 20px;
+        }
+        
+        /* tools */
+        /* 전체 감싸는 컨테이너 */
+        .graph-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* 개별 항목 (이름 + 그래프 바) */
+        .graph-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 항목 간 간격 */
+        }
+
+        /* 항목 이름 스타일 */
+        .label {
+            width: 100px; /* 이름 영역 너비 고정 */
+            font-size: 16px;
+            font-weight: 400;
+            color: #333;
+        }
+
+        /* 회색 배경 바 */
+        .bar-container {
+            flex: 1; /* 남은 공간을 모두 차지 */
+            height: 24px;
+            background-color: #e9ecef;
+            /* overflow: hidden; */
+            position: relative;
+        }
+
+        /* 색상이 채워지는 실질적인 그래프 바 */
+        .bar {
+            width: 0px;
+            height: 100%;
+            background: linear-gradient(90deg, #DBEDF1, #c6deff); 
+            /* 그라데이션 효과 */
+            color: #333;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: right;
+            line-height: 24px;
+            padding-right: 10px;
+            box-sizing: border-box;
+            
+            /* ◀ transition 대신 animation을 적용합니다 */
+            animation: fillBar 1s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+            transform-origin: left; /* 왼쪽에서부터 차오르도록 설정 */
+        }
+        @keyframes fillBar {
+            from {
+                width: 0;
+            }
+            to {
+                /* HTML에 작성된 style="width: OO%" 값을 그대로 이어받도록 
+                to에는 width 지정을 생략하거나 max-width 등을 활용할 수 있지만,
+                가장 표준적인 처리를 위해 animation 대신 0% 시작점만 지정하는 방식을 씁니다. */
+            }
+        }
+        .bar span {
+            display: none;
+        }
+        .bar:hover span{
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            margin-left:20px;
+            width: 50px;
+            height: 104%;
+            /* padding: 0 5px 0 10px; */
+            padding-left: 12px;
+            text-align: center;
+            background-image: url(./graphTag.png);
+            background-size: cover;
+            box-sizing: border-box;
+
+            -webkit-border-radius: 0 2px 2px 0;
+            -moz-border-radius: 0 2px 2px 0;
+                -ms-border-radius: 0 2px 2px 0;
+                    border-radius: 0 2px 2px 0;
+        }
+        
+        /* Education 테이블 */
+        .sectionContext table,th,td,tr {
+            border: 1px solid #333;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+        .sectionContext table{
+            width: 100%;
+        }
+        .sectionContext th{
+            background-color: lemonchiffon;
+            font-weight: 400;
+        }
+
+        /* Certifications */
+        #certifications {
+            overflow: hidden;
+            height: 50px;
+        }
+        #certifications .track{
+            display: flex;
+            width:max-content;
+            animation: rolling 5s linear 0s infinite alternate;
+        }
+        #certifications .track div{
+            width: 76px;
+            height:50px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 400;
+            margin-right: 20px;
+            text-align: center;
+            border-radius: 16%;
+            border: 1px solid black;
+        }
+        #certifications .track div:nth-child(even){
+            background-color: #FDEAC5;
+        }
+        #certifications .track div:nth-child(odd){
+            background-color: #DBEDF1;
+        }
+        @keyframes rolling {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* 1세트가 완전히 지나간 시점 (-50%)에 처음으로 순간이동 */
+                transform: translateX(-30%); 
+            }
+        }
+
+        /* CLOCK */
+        #clock{
+            position: fixed;
+            background-image: url(./clock.png);
+            width: 228px;
+            height: 108px;
+            bottom: 120px;
+            right: 200px;
+            z-index: 150;
+            font-size: 30px;
+        }
+
+                /* 작은 모니터 */
+        @media screen and (max-width : 1300px){ 
+            #clock{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <nav>
+            <ul>
+                <li>
+                    <a href="./page1.html">FOMAL</a>
+                    <button class="starBtn btn" onclick="fnToggleStar()">별</button>
+                </li>
+                <li><a href="./page2.html">CASUAL</a></li>
+                <li><a href="./page3.html">GUESTBOOK</a></li>
+            </ul>
+        </nav>
+        <div id="page">
+                <!-- 여기 안에 aside랑 main 넣어야 border가 이쁘게 나올 거 같음 -->
+            <div id="main">
+                <h1>GUESTBOOK</h1>
+
+                <!-- SELF-INTRODUCTION -->
+                <section>
+                    <div class="sectionTitle">
+                        <h2 class="subTitle">SELF-INTRODUCTION</h2> 
+                        <button class="moreBtn btn">더보기 버튼</button>
+                    </div>
+                    <div class="sectionContext">
+                        <mark>프로그래밍</mark>에 관심이 많습니다. <br>현재 열심히 공부하며 코딩 중!
+                    </div> 
+                </section>
+
+                <!-- EXPERIENCE -->
+                <section>
+                    <div class="sectionTitle">
+                        <h2 class="subTitle">EXPERIENCE</h2> 
+                        <button class="moreBtn btn">더보기 버튼</button>
+                    </div>
+                    <div class="sectionContext">
+                        <ul class="exList">
+                            <li>프론트엔드
+                                <ul>
+                                    <li>HTML/CSS/JAVASCRIPT </li>
+                                    <li>웹 페이지 잘 만든다 </li>
+                                    <li>다 잘함</li> 
+                                </ul>
+                            </li>
+                            <li>백엔드
+                                <ul>
+                                    <li>자바 잘함 </li>
+                                    <li>오라클 더 잘함</li>
+                                </ul>                        
+                            </li>
+                        </ul>    
+                    </div>
+                        
+                </section>
+                
+                <!-- TOOLS -->
+                <section>
+                    <div class="sectionTitle">
+                        <h2 class="subTitle">TOOLS</h2>
+                        <button class="moreBtn btn">더보기 버튼</button>
+                    </div>
+                    <div class="graph-wrapper sectionContext">
+                        <div class="graph-item">
+                        <div class="label">자바</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 60%;"><span>60%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="graph-item">
+                        <div class="label">오라클</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 70%;"><span>70%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="graph-item">
+                        <div class="label">HTML/CSS</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 80%;"><span>80%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="graph-item">
+                        <div class="label">illustrator</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 90%;"><span>90%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="graph-item">
+                        <div class="label">피그마</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 85%;"><span>85%</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                </section>
+
+                <!-- EDUCATION -->
+                <section>
+                    <div class="sectionTitle">
+                        <h2 class="subTitle">EDUCATION</h2>
+                        <button class="moreBtn btn">더보기 버튼</button>
+                    </div>
+                    <div class="sectionContext">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>출신학교</th>
+                                    <th>전공</th>
+                                    <th>기간</th>
+                                    <th>구분</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>마우스대학교</td>
+                                    <td>마우스학과</td>
+                                    <td>2010.3 ~ 2013.2</td>
+                                    <td>졸업</td>
+                                </tr>
+                                <tr>
+                                    <td>마우스고등학교</td>
+                                    <td> - </td>
+                                    <td>2007.3 ~ 2009.2</td>
+                                    <td>졸업</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </section>
+
+                <!-- CERTIFICATIONS -->
+                <section>
+                    <div class="sectionTitle">
+                        <h2 class="subTitle">CERTIFICATIONS</h2>
+                        <button class="moreBtn btn">더보기 버튼</button>
+                    </div>
+                    <div class="sectionContext" id="certifications">   
+                        <div class="track">
+                            <div>ITQ</div>
+                            <div>웹디자인<br> 기능사</div>
+                            <div>GTQ</div>
+                            <div>sqld</div>
+                            <div>HSK4</div>
+                            <div>공백1</div>
+                            <div>공백2</div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="clock">배우면 넣어 시계</div>
+</body>
+</html>
+<script>
+    function fnToggleStar(){
+        // active 클래스를 있으면 빼고, 없으면 넣어줍니다.
+        document.querySelector(".starBtn").classList.toggle("active");
+    }
+
+
+
+    const toggleBtns = document.querySelectorAll('.moreBtn');
+
+    toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // 클릭한 버튼이 속한 .section-box를 찾고, 그 안의 .sectionContext를 찾습니다.
+            const section = e.target.closest('section');
+            const sectionContext = section.querySelector('.sectionContext');
+        
+            // active 클래스를 토글합니다.
+            sectionContext.classList.toggle('active');
+
+            if(section.querySelector('.moreBtn').classList.toggle('active')){
+                section.querySelector('.moreBtn').style.rotate = "180deg"; 
+                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
+            }else{
+                section.querySelector('.moreBtn').style.rotate = "0deg"; 
+                section.querySelector('.moreBtn').style.transformOrigin = "center"; 
+            }
+        });
+    });
+    
+</script>
+<!-- 
+transform-origin: center; 
+            rotate: 180deg -->
