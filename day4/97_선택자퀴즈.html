@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+        <div>
+        <label>자바
+            <input type="checkbox" name="book" value="java">
+        </label>
+        <label>오라클
+            <input type="checkbox" name="book" value="oracle">
+        </label>
+        <label>html
+            <input type="checkbox" name="book" value="html">
+        </label>
+        <label>jquery
+            <input type="checkbox" name="book" value="jquery">
+        </label>
+        <button onclick="fnSubject()">클릭!</button>
+    </div>
+    <hr>
+    <div>
+        <img class="image" src="" alt="">
+        <img class="image" src="" alt="">
+        <img class="image" src="" alt="">
+        <img class="image" src="" alt="">
+    </div>
+    <!-- 쌤 코드는 다르니 나중에 복붙할 것 -->
+</body>
+</html>
+<script>
+    function fnSubject(){
+        let list = document.querySelectorAll("input[name='book']:checked");
+        let imgList = document.querySelectorAll(".image");
+        for(let i=0; i<list.length; i++){
+            if(list[i].value == "java"){
+                imgList[i].src = "../images/java.jpg";
+            }
+            if(list[i].value=="oracle"){
+                imgList[i].src="../images/oracle.jpg";
+            }
+            if(list[i].value=="html"){
+                imgList[i].src="../images/html.jpg";
+            }
+            if(list[i].value=="jquery"){
+                imgList[i].src="../images/jquery.jpg";
+            }
+        }
+
+    }
+</script>

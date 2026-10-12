@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 500px;
+            margin: 20px auto;
+        }
+        #time {
+            text-align: center;
+            font-weight: bold;
+            color:cornflowerblue;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="time"></div>
+    </div>
+</body>
+</html>
+<script>
+    
+    let obj = document.querySelector("#time");
+    // obj.innerHTML = datetime.toLocaleTimeString();
+    // .toLocaleDateString()도 있음
+    setInterval(function(){
+        let datetime = new Date();
+        // 객체를 안에 넣어줘야 1초마다 datetime이 갱신됨! 주의
+        // let time = datetime.getHours()+":"+datetime.getMinutes()+":"+datetime.getSeconds();
+        
+        let hour = datetime.getHours() < 10 ? "0"+datetime.getHours() : datetime.getHours();
+        let minute = datetime.getMinutes() < 10 ? "0"+datetime.getMinutes() : datetime.getMinutes();
+        let second = datetime.getSeconds() < 10 ? "0"+datetime.getSeconds() : datetime.getSeconds();
+        obj.innerHTML = hour+":"+minute+":"+second;
+    }, 1000);
+</script>

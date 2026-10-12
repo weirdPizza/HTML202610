@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div{
+        border-bottom: 2px solid black;
+    }
+    #img{
+        width: 200px;
+    }
+</style>
+<body>
+    <div>
+        <label onclick="fnSubject()">자바
+            <input type="radio" name="book" value="java">
+        </label>
+        <label onclick="fnSubject()">오라클
+            <input type="radio" name="book" value="oracle">
+        </label>
+        <label onclick="fnSubject()">html
+            <input type="radio" name="book" value="html">
+        </label>
+        <label onclick="fnSubject()">jquery
+            <input type="radio" name="book" value="jquery">
+        </label>
+    </div>
+    <hr>
+        <div>
+        <label onclick="fnTest('java')">자바
+            <input type="radio" name="book">
+        </label>
+        <label onclick="fnTest('oracle')">오라클
+            <input type="radio" name="book">
+        </label>
+        <label onclick="fnTest('html')">html
+            <input type="radio" name="book">
+        </label>
+        <label onclick="fnTest('jquery')">jquery
+            <input type="radio" name="book">
+        </label>
+    </div>
+    <img src="" alt="" id="img">
+</body>
+</html>
+<script>
+    function fnSubject(){
+        let obj = document.querySelector("input[name='book']:checked");
+        let img = document.querySelector("#img");
+        console.log(obj);
+        // if(obj.value=="java"){
+        //     img.src="../images/java.jpg";
+        // }
+        // if(obj.value=="oracle"){
+        //     img.src="../images/oracle.jpg";
+        // }
+        // if(obj.value=="html"){
+        //     img.src="../images/html.jpg";
+        // }
+        // if(obj.value=="jquery"){
+        //     img.src="../images/jquery.jpg";
+        // }
+
+        img.src = obj.value=="java"? "../images/java.jpg" : 
+            obj.value=="oracle" ? "../images/oracle.jpg" : 
+            obj.value=="html"?"../images/html.jpg":
+            obj.value=="jquery"?"../images/jquery.jpg":"";
+    //   <!-- 데베에 보낼 거다 하면 value 있는 형태 ㄱ --> 위같은 형태 ㅇㅇ
+        // let obj = document.querySelector("input[name='book']:checked");
+        // let img = document.querySelector("#img");
+        img.src = `../images/${subject}.jpg`;
+  
+    }
+
+    function fnTest(subject){
+        let obj = document.querySelector("input[name='book']:checked");
+        let img = document.querySelector("#img");
+        img.src = `../images/${subject}.jpg`;
+    }
+    
+</script>
+

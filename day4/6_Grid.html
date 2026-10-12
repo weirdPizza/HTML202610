@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: grid;
+            border: 2px solid black;
+            /* auto-fit */
+                /* 전체크기에 맞춰서 요소들을 꽉 채운다 */
+            grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
+            /* 전체화면에선 요소들 크기 150 이상(1fr이니까 비율은 동일) */
+            /* 화면 줄어들면서 요소들 크기 150px 아래로 내려가는 순간, */
+            /* 한줄에 위치하다가 두 줄에 위치하게 되고 이런식 */
+
+            /* auto-fill */
+            /* 
+            최소 크기에 맞춰서 채움, 빈공간 있으면 그대로 둠
+            전체화면에서 빈공간 그대로 둠
+            */
+            gap: 10px;
+            margin: 5px;
+        }
+        .box{
+            border: 2px solid black;
+            text-align: center;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .box:nth-child(odd){
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- 중요함! -->
+    <div id="container">
+        <div class="box">box1</div>
+        <div class="box">box2</div>
+        <div class="box">box3</div>
+        <div class="box">box4</div>
+        <div class="box">box5</div>
+        <div class="box">box6</div>
+    </div>
+</body>
+</html>

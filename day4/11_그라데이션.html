@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 500px;
+            height: 500px;
+        }
+        .grad{
+            background-color: orange;
+            /* 백그라운드를 단색으로 또 준 이유는
+            그라데이션을 지원해주지 않는 브라우저에게 보여주기 위해서
+            */
+            background:radial-gradient(white, orange, lightskyblue);
+        }
+        .grad2{
+            background-color: orange;
+            background:radial-gradient(circle,white, orange, lightskyblue);
+            /* 기본적으로 circle이 디폴트 */
+        }
+        .grad3{
+            background-color: orange;
+            background:radial-gradient(circle at 80% 20%,white, orange, lightskyblue);
+            /* 기본적으로 circle이 디폴트 */
+        }
+        .grad4{
+            background-color: orange;
+            background:radial-gradient(circle at 80% 30%, white, orange 20%, lightskyblue 80%);
+        }
+    </style>
+</head>
+<body>
+    <div class="grad2"></div>
+    <div class="grad4"></div>
+</body>
+</html>

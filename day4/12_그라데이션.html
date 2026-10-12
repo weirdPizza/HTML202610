@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 500px;
+            height: 500px;
+        }
+        .grad{
+            /* 반복 */
+            background-color: orange;
+            /* 백그라운드를 단색으로 또 준 이유는
+            그라데이션을 지원해주지 않는 브라우저에게 보여주기 위해서
+            */
+            background:repeating-linear-gradient(orange, lightskyblue 20%);
+        }
+        .grad2{
+            background:repeating-radial-gradient(orange, lightskyblue 20%);
+        }
+    </style>
+</head>
+<body>
+    <div class="grad2"></div>
+</body>
+</html>

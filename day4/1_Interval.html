@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result"></div>
+</body>
+</html>
+<script>
+    let result = document.querySelector("#result");
+    let i=0;
+    let text = "HELLO HTML";
+    let textSum="";
+    let intervalId = setInterval(function(){
+        textSum+=text.charAt(i);
+        result.innerHTML=textSum;
+        i++;
+        if(i>text.length){
+            // textSum="";
+            // i=0;
+            clearInterval(intervalId); // setInterval 종료
+            // 아이디 값을 인자로 넣어주면 됨.
+        }
+    }, 1000);
+</script>
+

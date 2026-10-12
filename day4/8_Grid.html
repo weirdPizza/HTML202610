@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* grid-template-rows: 100px 200px; */
+            grid-template-rows: repeat(4, 100px);
+            grid-template-areas: 
+            "t-box t-box t-box"
+            "o-box g-box g-box"
+            "o-box p-box p-box";
+        }
+        .box{
+            border: 2px solid black;
+            text-align: center;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .tomato-box{
+            background-color: tomato;
+            grid-area:t-box;
+        }
+        .orange-box{
+            background-color: orange;
+            grid-area:o-box;
+        }
+        .green-box{
+            background-color: olivedrab;
+            grid-area:g-box;
+        }
+        .pink-box{
+            background-color: orchid;
+            grid-area:p-box;
+        }
+        /* .box:nth-child(odd){
+            background-color: cadetblue;
+        } */
+    </style>
+</head>
+<body>
+    <!-- 중요함! -->
+    <div id="container">
+        <div class="box tomato-box">box1</div>
+        <div class="box orange-box">box2</div>
+        <div class="box green-box">box3</div>
+        <div class="box pink-box">box4</div>
+    </div>
+</body>
+</html>

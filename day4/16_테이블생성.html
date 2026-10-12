@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, tr, td, th{
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="contents"></div>
+    <div>
+        <button onclick="fnCreateTable()">테이블 생성!</button>
+    </div>
+</body>
+</html>
+<script>
+    function fnCreateTable(){
+        // 1.테이블 태그 생성 <table> </table>
+        // 2. tr태그 생성 -필요한 행 수 만큼 <tr> </tr>
+        // 3. td태그 생성 <td> </td>
+        // 4. td태그를 tr태그에 넣기
+        // 5. tr태그 table 태그에 넣기
+
+        // let td1=document.createElement("td");
+        // td1.innerHTML="1";
+        // let td2=document.createElement("td");
+        // td2.innerHTML="2";
+        // tr.appendChild(td1);
+        // tr.appendChild(td2);
+        // table.appendChild(tr);
+        // document.querySelector("#contents").appendChild(table);
+
+        let num = 1;
+        let table=document.createElement("table");
+        for(let i=0; i<4; i++){
+            let tr=document.createElement("tr");
+            for(let j=0; j<4; j++){
+                let td=document.createElement("td");
+                td.innerHTML=num++;
+                tr.appendChild(td)
+            }
+            table.appendChild(tr);
+        }
+        document.querySelector("#contents").appendChild(table);
+    }
+</script>

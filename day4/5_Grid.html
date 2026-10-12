@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: grid;
+            /* grid-template-columns: 200px 300px 100px; */
+            /* grid-template-columns: 1fr 1fr 1fr; */
+            /* 1fr ... : 1대(비율) 1대 1 비율(전체화면 기준) */
+            grid-template-columns: repeat(3, 1fr);
+            /* 1대1대1 비율로 3등분해줌 */
+
+            /* grid-template-rows: 100px 200px; */
+            /* grid-auto-rows: 100px; */
+            grid-auto-rows: minmax(100px, auto);
+            /* 최솟값 100, 최댓값은 자동 */
+            
+        }
+        .box{
+            border: 2px solid black;
+            text-align: center;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .box:nth-child(odd){
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- 중요함! -->
+    <div id="container">
+        <div class="box">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.</div>
+        <div class="box">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.</div>
+        <div class="box">box3</div>
+        <div class="box">box4</div>
+        <div class="box">box5</div>
+        <div class="box">box6</div>
+    </div>
+</body>
+</html>
