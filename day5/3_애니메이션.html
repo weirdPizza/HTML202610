@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Animation 실습</title>
+  <style>
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      background-color: #f4f6f9;
+      padding: 30px;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; margin-bottom: 10px; }
+    p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .section h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .desc { color: #555; font-size: 0.95rem; margin-bottom: 20px; }
+
+    .box-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 120px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 1px dashed #ccc;
+    }
+
+    /* 기본 박스 스타일 */
+    .box {
+      width: 110px;
+      height: 80px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    /* 위아래로 튀는 효과 */
+    @keyframes bounce {
+      from { 
+        /* 시작점, 0%와 같음 */
+        transform: translateY(0);
+      }
+      to {  
+        /* 끝나는 지점, 100%와 같음 */
+        transform: translateY(-25px);
+        background-color: orange;
+      }
+    }
+
+    
+    @keyframes rainbow-move {
+      0% {
+        /* background-color: #3498db; */
+        background-color: red;
+        transform: translateX(0) scale(1);
+      }
+      33% {
+        transform: translateX(100px) scale(1.2) rotate(15deg);
+        background-color: orange;
+    }
+      66% {
+        transform: translateX(200px) scale(0.8) rotate(-15deg);
+        background-color: green;
+      }
+      100% {
+        transform: translateX(300px) scale(1) rotate(0deg);
+        background-color: blue;
+      }
+    }
+
+   
+    @keyframes spin {
+      0%   {transform: rotate(0);}
+      100% { transform: rotate(360deg);}
+    }
+
+    @keyframes move-forward {
+      0%   {
+        transform: translateX(0);
+        background-color: #3498db;
+    }
+      100% {
+        transform: translateX(200px); 
+        background-color: orange;
+    }
+    }
+
+
+    .anim-normal {
+      animation-name: bounce;
+      animation-duration: 1s;
+
+      /* infinite : 무한반복, 3 넣으면 3번 반복 */
+      animation-iteration-count: infinite;
+
+      animation-direction: normal;
+    }
+
+    .anim-alternate {
+      animation-name: bounce;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      /* 0%->100% 갔다가 100%->0%로 부드럽게 왕복 */
+      animation-direction: alternate;
+      animation-timing-function: ease-in-out;
+    }
+
+   
+    .anim-multi-step {
+        /* 이름 진행시간 가속도 대시시간 반복횟수 방향 */
+        animation: rainbow-move 1.5s ease-in  0s infinite alternate;
+    }
+
+    .fill-trigger:hover .fill-none {
+        /* none -> 기본값, 끝나면 처음으로 돌아감 */
+        animation: move-forward 1s ease-in-out 1 normal none;
+    }
+    .fill-trigger:hover .fill-forwards {
+        animation: move-forward 1s ease-in-out 1 normal forwards;
+        /* forwards -> 100% 지점에서 멈춤 */
+    }
+
+    /* 4. 일시정지 제어 (animation-play-state) */
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ddd;
+      border-top-color: #e74c3c; /* 윗부분만 색을 다르게 해서 회전이 보이게 함 */
+      border-radius: 50%;
+      /* 일정한 속도(linear)로 무한 회전 */
+      animation: spin 1s linear infinite;
+      cursor: pointer;
+
+    }
+    /* 마우스를 올리면 애니메이션 일시정지! */
+    .spinner:hover {
+        animation-play-state: paused;
+        /* 다시 재생 -> running */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Animation 실습장</h1>
+  <p class="subtitle">페이지가 열리자마자 스스로 움직이는 요소들과 마우스 반응형 제어를 확인해 보세요.</p>
+
+  <!-- 섹션 1 -->
+  <div class="section">
+    <h2>1. 방향 제어: normal vs alternate (왕복)</h2>
+    <p class="desc"><code>normal</code>은 끝까지 가면 처음으로 뚝 끊겨 돌아오지만, <code>alternate</code>는 공이 튀듯 부드럽게 왕복합니다.</p>
+    <div class="box-container">
+      <div class="box anim-normal">normal<br>(뚝 끊김)</div>
+      <div class="box anim-alternate">alternate<br>(부드러운 왕복)</div>
+    </div>
+  </div>
+
+  <!-- 섹션 2 -->
+  <div class="section">
+    <h2>2. 다단계 시나리오 (@keyframes 0% ~ 100% 세분화)</h2>
+    <p class="desc"><code>transition</code>으로는 불가능한 구간별(0%, 33%, 66%, 100%) 다채로운 변화를 연속으로 실행합니다.</p>
+    <div class="box-container">
+      <div class="box anim-multi-step">다단계 변화<br>(이동+색상+회전)</div>
+    </div>
+  </div>
+
+  <!-- 섹션 3 -->
+  <div class="section">
+    <h2>3. 종료 후 상태 고정 (animation-fill-mode: forwards) - 점선 영역에 마우스를 올리세요!</h2>
+    <p class="desc">1회만 재생되는 애니메이션이 끝났을 때, 처음으로 돌아갈지(<code>none</code>) 도착 지점에 남을지(<code>forwards</code>) 비교해 보세요.</p>
+    <div class="box-container fill-trigger" style="flex-direction: column; align-items: flex-start;">
+      <div class="box fill-none">fill-mode: none<br>(끝나면 돌아감)</div>
+      <div class="box fill-forwards">fill-mode: forwards<br>(도착 상태 유지!)</div>
+    </div>
+  </div>
+
+  <!-- 섹션 4 -->
+  <div class="section">
+    <h2>4. 로딩 스피너 & 일시정지 (animation-play-state)</h2>
+    <p class="desc">돌아가는 원(로딩 아이콘)에 <strong>마우스를 올리면 일시정지(<code>paused</code>)</strong>되고, 떼면 다시 돕니다.</p>
+    <div class="box-container">
+      <div class="spinner" title="마우스를 올리면 멈춥니다!"></div>
+      <span>⬅ 회전하는 로딩 바에 마우스를 올려보세요!</span>
+    </div>
+  </div>
+
+</body>
+</html>

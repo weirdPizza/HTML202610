@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../images/lion.jpg" id="image" alt="" width="500">
+</body>
+</html>
+<script>
+    let img=document.querySelector("#image");
+    img.addEventListener("mouseover", function(){
+        // alert("안녕");
+        img.src="../images/squid.jpg";
+    });
+    img.addEventListener("mouseout",function(){
+        img.src="../images/lion.jpg";
+    });
+
+    // 이벤트 종류
+    // click => 마우스 클릭 했을 때
+    // dbclick => 더블 클릭 했을 때
+    // mousedown => 마우스를 누르고 있을 때
+    // mouseup => 마우스를 뗐을 때
+    // mousemove => 마우스를 움직일 때 
+</script>

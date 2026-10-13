@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Transition 실습</title>
+  <style>
+    body {
+      background-color: #f4f6f9;
+      padding: 30px;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; margin-bottom: 10px; }
+    p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+    
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .section h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .box-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    /* 기본 박스 스타일 */
+    .box {
+      width: 130px;
+      height: 80px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .no-trans:hover {
+        transform: scale(1.2);
+        background-color: orange;
+    }
+
+    .basic-trans {
+        /* 모든 속성의 변화에를 0.5초에 거쳐서 부드럽게 전환 */
+        transition-property: all;
+        transition-duration: 0.5s;
+    }
+    .basic-trans:hover {
+        transform: scale(1.2);
+        background-color: orange;
+    }
+
+    .only-bg-trans {
+        /* 배경색만 부드럽게 처리 */
+        transition-property: background-color;
+        transition-duration: 0.5s;
+    }
+    .only-bg-trans:hover {
+      background-color: #e74c3c;
+        transform: scale(1.2);
+    }
+
+    .race-track {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px dashed #ccc;
+    }
+    .runner {
+      width: 120px;
+      height: 40px;
+      background-color: #2ecc71;
+      color: white;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+
+      /* 이동(transform)을 1.5초 동안 실행 */
+        transition-property: transform, background-color;
+        transition: 1.5s;
+    }
+    .runner:last-child { margin-bottom: 0; }
+
+    .race-track:hover .runner {
+        background-color: #27ae60;
+        transform: translateX(500px);
+        background-color: blue;
+    }
+
+
+    .linear      { transition-timing-function: linear; } /* 처음부터 끝까지 일정한 속도 (기계적) */
+    .ease        { transition-timing-function: ease; } /* (기본값) 천천히 시작 -> 빨라짐 -> 천천히 끝 */
+    .ease-in     { transition-timing-function:ease-in } /* 천천히 시작 -> 갈수록 빨라짐 (가속) */
+    .ease-out    { transition-timing-function:ease-in-out } /* 빠르게 시작 -> 끝에서 천천히 멈춤 (감속, 실무 추천!) */
+    .ease-in-out { transition-timing-function:ease-in-out } /* 천천히 시작 -> 중간 가속 -> 천천히 끝 */
+
+
+    /* 맨 마지막 값이 delay값 */
+    .delay-0 { transition: all 0.5s ease 0s; } /* 즉시 시작 */
+    .delay-1 { transition: all 0.5s ease 0.2s; } /* 0.2초 뒤 시작 */
+    .delay-2 { transition: all 0.5s ease 1s; } /* 1초 뒤 시작 */
+
+    .delay-box:hover {
+        transform: translateY(30px);
+        background-color: orange;
+    }
+
+
+    .multi-trans {
+      background-color: #34495e;
+      transition: width 0.4s ease, background-color 0.4s ease 0.4s, border-radius 0.4s ease;
+    }
+    .multi-trans:hover {
+        width: 260px;
+        background-color: orange;
+        border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS Transition</h1>
+  <p class="subtitle">Hover</p>
+
+  <!-- 섹션 1 -->
+  <div class="section">
+    <h2>1. 기본 동작과 적용 대상 (property & duration)</h2>
+    <div class="box-container">
+      <div class="box no-trans">Transition 없음<br>(즉시 변경)</div>
+      <div class="box basic-trans">all 0.5s<br>(모두 부드럽게)</div>
+      <div class="box only-bg-trans">배경색만 0.5s<br>(크기는 즉시 변경)</div>
+    </div>
+  </div>
+
+  <!-- 섹션 2 -->
+  <div class="section">
+    <h2>2. 속도 곡선 비교 (transition-timing-function) - 점선 영역에 마우스를 올리세요!</h2>
+    <div class="race-track">
+      <div class="runner linear">linear (등속)</div>
+      <div class="runner ease">ease (기본값)</div>
+      <div class="runner ease-in">ease-in (가속)</div>
+      <div class="runner ease-out">ease-out (감속)</div>
+      <div class="runner ease-in-out">ease-in-out</div>
+    </div>
+  </div>
+
+  <!-- 섹션 3 -->
+  <div class="section">
+    <h2>3. 지연 시간 (transition-delay) & 단축 속성</h2>
+    <div class="box-container">
+      <div class="box delay-box delay-0">0초 대기<br>(즉시 반응)</div>
+      <div class="box delay-box delay-1">0.2초 대기<br>(살짝 늦게 반응)</div>
+      <div class="box delay-box delay-2">0.4초 대기<br>(한 박자 늦게 반응)</div>
+    </div>
+  </div>
+
+  <!-- 섹션 4 -->
+  <div class="section">
+    <h2>4. 다중 트랜지션 (속성별 개별 타이밍 조합)</h2>
+    <p>마우스를 올리면 <strong>너비가 먼저 늘어난 뒤(0.4s)</strong>, 이어서 <strong>색상이 변합니다(0.4s 딜레이).</strong></p>
+    <div class="box-container">
+      <div class="box multi-trans">마우스를 올려보세요!</div>
+    </div>
+  </div>
+
+</body>
+</html>

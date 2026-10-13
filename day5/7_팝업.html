@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="fnPopup()">팝업!</button>
+</body>
+</html>
+<script>
+    function fnPopup(){
+        // 첫번째 파라미터 : 팝업 띄울 주소(파일)
+        // 두번째 파라미터 : 팝업의 이름 - 같은 이름의 팝업은 2개 이상 출력되지 않는다.<중요> 
+        // 세번째 파라미터 : 크기(width, height)와 위치(left,top,right,bottom)
+        // 위치는 0,0이 기본값
+        let left=(screen.availWidth-600)/2;
+        let top=(screen.availHeight-300)/2;
+        window.open("../day4/2_Interval.html","time",`width=600, height=300,left=${left}, top=${top}`);
+    }
+</script>

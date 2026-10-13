@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Transform 실습</title>
+  <style>
+    body {
+      background-color: #f4f6f9;
+      padding: 30px;
+      color: #333;
+    }
+    h1 { text-align: center; margin-bottom: 40px; }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    /* 원래 위치 표시용 점선 박스 */
+    .stage {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border: 2px dashed #ccc;
+      position: relative;
+    }
+    /* 박스 기본 스타일 */
+    .box {
+      width: 100%;
+      height: 100%;
+      background-color: #4a90e2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      /* 부드러운 애니메이션 효과를 위해 transition 추가 */
+      transition: transform 0.4s ease;
+    }
+    
+    .translate-xy:hover {
+        /* translate는 이동 => 현재 위치 기주능로 x, y 축으로 이동 */
+        transform: translate(30px, 20px);
+    }
+
+    .translate-x:hover {
+        /* 내 너비 기준, 박스가 100px이면 50px(50%)만큼 이동 */
+        transform: translateX(50%);
+    }
+    .translate-y:hover {
+        /* 음수를 주면 반대방향으로 이동 */
+        transform: translateY(-30%);
+    }
+
+    .scale-up:hover {
+        /* scale은 크기 조절 => 1이 기본 100%, 배수로 지정 */
+        transform: scale(-1);
+        /* -1 값 넣으면 좌우상하 반대가 됨 */
+    }
+
+    .scale-down:hover {
+        transform: scale(0.7);
+    }
+
+    .scale-xy:hover {
+        transform: scale(-1, 0.7);
+        /* X축 -1넣으면 좌우 반전 */
+    }
+
+    .rotate-pos:hover {
+        /* rotate는 회전 => 각도(deg), turn(바퀴) 단위 사용 */
+        transform: rotate(45deg);
+    }
+
+    .rotate-neg:hover {
+        transform: rotate(-90deg);
+    }
+
+    .rotate-turn:hover {
+        transform: rotate(0.5turn);
+    }
+
+    .skew-x:hover {
+        /* skew는 비틀기 => 각도(deg)로 비틈 */
+        transform: skewX(25deg);
+    }
+
+    .skew-y:hover {
+        transform: skewY(-20deg);
+    }
+    .skew-xy:hover {
+        transform: skew(20deg, 10deg);
+    }
+
+    .origin-top-left {
+        /* transform-origin 변형 기준점 변경 */
+        /* 디폴트는 중앙 */
+      transform-origin: top left; 
+      background-color: #e67e22;
+    }
+    .origin-top-left:hover {
+        transform: rotate(45deg);
+    }
+
+    .origin-bottom-right {
+      transform-origin: right bottom;
+      background-color: #e67e22;
+    }
+    .origin-bottom-right:hover {
+        transform: scale(1.3);
+    }
+
+    .multi-transform {
+      background-color: #8e44ad;
+    }
+    .multi-transform:hover {
+        /* 힘수 여러개 한번에 적용 */
+      transform: translateY(-20px) scale(1.2) rotate(15deg);
+    }
+   
+    .stage-3d {
+        /* 3D는 원근감 */
+        /* 카메라와 물체 사이의 거리(원근감), 값이 낮을수록 왜곡이 심해진다. */
+        perspective: 300px;
+        
+    }
+    .rotate-3d-x { background-color: #27ae60; }
+    .rotate-3d-x:hover {
+      transform: rotateX(60deg);
+    }
+
+    .rotate-3d-y { background-color: #27ae60; }
+    .rotate-3d-y:hover {
+      transform: rotateY(60deg);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hover</h1>
+
+  <div class="grid-container">
+    <!-- 1. Translate -->
+    <div class="card">
+      <h3>translate(30px, 20px)</h3>
+      <div class="stage"><div class="box translate-xy">이동(X,Y)</div></div>
+      <p>우측 30px, 아래 20px</p>
+    </div>
+
+    <div class="card">
+      <h3>translateX(50%)</h3>
+      <div class="stage"><div class="box translate-x">X축 이동</div></div>
+      <p>내 크기의 50% 우측 이동</p>
+    </div>
+
+    <div class="card">
+      <h3>translateY(-30px)</h3>
+      <div class="stage"><div class="box translate-y">Y축 이동</div></div>
+      <p>위로 30px 이동</p>
+    </div>
+
+    <!-- 2. Scale -->
+    <div class="card">
+      <h3>scale(1.3)</h3>
+      <div class="stage"><div class="box scale-up">확대</div></div>
+      <p>1.3배 커짐</p>
+    </div>
+
+    <div class="card">
+      <h3>scale(0.7)</h3>
+      <div class="stage"><div class="box scale-down">축소</div></div>
+      <p>0.7배 작아짐</p>
+    </div>
+
+    <div class="card">
+      <h3>scale(1.4, 0.7)</h3>
+      <div class="stage"><div class="box scale-xy">비율 변경</div></div>
+      <p>가로 확대, 세로 축소</p>
+    </div>
+
+    <!-- 3. Rotate -->
+    <div class="card">
+      <h3>rotate(45deg)</h3>
+      <div class="stage"><div class="box rotate-pos">시계방향</div></div>
+      <p>45도 회전</p>
+    </div>
+
+    <div class="card">
+      <h3>rotate(-90deg)</h3>
+      <div class="stage"><div class="box rotate-neg">반시계방향</div></div>
+      <p>-90도 회전</p>
+    </div>
+
+    <div class="card">
+      <h3>rotate(0.5turn)</h3>
+      <div class="stage"><div class="box rotate-turn">반 바퀴</div></div>
+      <p>180도 회전</p>
+    </div>
+
+    <!-- 4. Skew -->
+    <div class="card">
+      <h3>skewX(25deg)</h3>
+      <div class="stage"><div class="box skew-x">가로 비틀기</div></div>
+      <p>X축 25도 기울임</p>
+    </div>
+
+    <div class="card">
+      <h3>skewY(-20deg)</h3>
+      <div class="stage"><div class="box skew-y">세로 비틀기</div></div>
+      <p>Y축 -20도 기울임</p>
+    </div>
+
+    <!-- 5. Origin -->
+    <div class="card">
+      <h3>origin: top left</h3>
+      <div class="stage"><div class="box origin-top-left">기준점 변경</div></div>
+      <p>좌측 상단 기준 회전</p>
+    </div>
+
+    <div class="card">
+      <h3>origin: right bottom</h3>
+      <div class="stage"><div class="box origin-bottom-right">기준점 변경</div></div>
+      <p>우측 하단 기준 확대</p>
+    </div>
+
+    <!-- 6. 다중 변형 -->
+    <div class="card">
+      <h3>다중 변형 조합</h3>
+      <div class="stage"><div class="box multi-transform">복합 효과</div></div>
+      <p>이동 + 확대 + 회전</p>
+    </div>
+
+    <!-- 7. 3D 변형 -->
+    <div class="card">
+      <h3>3D rotateX(60deg)</h3>
+      <div class="stage stage-3d"><div class="box rotate-3d-x">3D X축</div></div>
+      <p>원근감 + 가로축 회전</p>
+    </div>
+
+    <div class="card">
+      <h3>3D rotateY(60deg)</h3>
+      <div class="stage stage-3d"><div class="box rotate-3d-y">3D Y축</div></div>
+      <p>원근감 + 세로축 회전</p>
+    </div>
+  </div>
+
+</body>
+</html>

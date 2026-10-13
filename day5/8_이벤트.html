@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="subject">자바</div>
+    <div class="subject">오라클</div>
+    <div class="subject">html</div>
+    <div class="subject">jsp</div>
+    <div class="subject">스프링</div>
+</body>
+</html>
+<script>
+    let list = document.querySelectorAll(".subject");
+    for(let i=0; i<list.length; i++) {
+        list[i].onclick = function(e){
+            // e.target == this 
+            // console.log(e.target.innerHTML);
+            this.style.color = "blue";
+        };
+    }
+</script>

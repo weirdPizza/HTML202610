@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 화면 중앙 정렬 및 배경색 */
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* 컨테이너 */
+        #app {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 45px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        #container h2 {
+            color: #333333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        #container p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* 입력 필드 영역 */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group span {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #4A90E2;
+        }
+
+        /* 아이디 입력창 및 중복체크 버튼 */
+        .input-group .userId {
+            width: 70%;
+        }
+
+        .input-group button {
+            margin-left: 10px;
+            padding: 12px 8px;
+            cursor: pointer;
+        }
+
+        /* 경고 문구 영역 */
+        .warning-area {
+            height: 18px;
+        }
+
+        .input-group .warning-txt {
+            color: red;
+            font-size: 12px;
+            margin: 2px 5px;
+        }
+
+        /* 가입하기 버튼 */
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .signup-btn:hover {
+            background-color: #357ABD;
+        }
+
+        /* 하단 링크 */
+        .bottom-links {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .bottom-links a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="container">
+            <h2>회원가입</h2>
+            <p>새로운 계정을 만들어 서비스를 시작하세요.</p>
+
+            <div class="input-group">
+                <span>이름</span>
+                <input id="userName" type="text" placeholder="홍길동">
+            </div>
+
+            <div class="input-group">
+                <span>아이디</span>
+                <input id="userId" class="userId" type="text" placeholder="아이디를 입력해주세요.">
+                <button type="button">중복체크</button>
+            </div>
+
+            <div class="input-group">
+                <span>비밀번호</span>
+                <input id="pwd1" type="password" placeholder="4자 이상 입력">
+                <div class="warning-area"></div>
+            </div>
+
+            <div class="input-group">
+                <span>비밀번호 확인</span>
+                <input id="pwd2" type="password" placeholder="비밀번호를 다시 입력하세요">
+                <div class="warning-area"></div>
+            </div>
+
+            <button type="button" class="signup-btn" onclick="fnLogin()">가입하기</button>
+
+            <div class="bottom-links">
+                이미 계정이 있으신가요?
+                <a href="#">로그인</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function fnLogin(){
+        let userName = document.querySelector("#userName").value;
+        let userId = document.querySelector("#userId").value;
+        let pwd1 = document.querySelector("#pwd1").value;
+        let pwd2 = document.querySelector("#pwd2").value;
+
+        // if(userName.length==0){
+        //     alert("이름을 입력해주세요.");
+        //     return;
+        // }
+        // if(userId.length==0){
+        //     alert("아이디를 입력해주세요.");
+        //     return;
+        // }
+        // if(userId.length < 6){
+        //     alert("아이디는 최소 6글자 입니다.");
+        //     return;
+        // }
+        // const idRegex = /^[a-z0-9]*$/;
+        // if(!idRegex.test(userId)){
+        //     alert("아이디는 소문자와 숫자 조합입니다.");
+        //     return;
+        // }
+
+        // if(pwd1.length==0 || pwd2.length == 0){
+        //     alert("비밀번호를 입력해주세요.");
+        //     return;
+        // }
+        // if(pwd1 < 6){
+        //     alert("비밀번호는 최소 6글자 입니다.");
+        //     return;
+        // }
+        // if(pwd1 != pwd2){
+        //     alert("비밀번호가 다릅니다.");
+        //     return;
+        // }
+        const pwRegex =/[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+        if(!pwRegex.test(pwd1)){
+            //  안됨!!!! 쌤꺼 복사
+            alert("비밀번호는 최소 1개 이상의 특수문자를 포함해야 합니다.");
+        }
+
+        if(userId.length>=6 && pwd1.length>=6){
+            alert("가입되셨습니다.");
+        }
+
+
+    }
+</script>

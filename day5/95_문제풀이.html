@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        table{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="contents"></div>
+</body>
+</html>
+<script>
+    $.ajax({
+        url : "https://jsonplaceholder.typicode.com/users" ,
+        // 데이터를 요청할 서버의 주소
+        dataType : "json",
+        // 응답받은 데이터의 타입
+        type: "GET",
+        // 요청(호출) 방식, 대표적으로 GET, POST
+        data : {},
+        // 내가 서버로 보낼 값
+        success : function(data){ // 서버 호출이 성공적으로 끝났을 때 실행되는 함수
+            console.log(data);
+            let table = document.createElement("table");
+            let tr = document.createElement("tr");
+            tr.innerHTML = "<th>아이디</th>"+"<th>이름</th>"+"<th>이메일</th>"+"<th>웹사이트</th>";
+            table.appendChild(tr);
+            for(let i=0; i<data.length; i++){
+                let user = document.createElement("tr");
+                user.innerHTML = 
+                    `<td>${data[i].id}</td>`+
+                    `<td>${data[i].name}</td>`+
+                    `<td>${data[i].email}</td>`+
+                    `<td>${data[i].website}</td>`;      
+                table.appendChild(user);
+            }
+            document.querySelector("#contents").appendChild(table);
+        }
+    });
+</script>

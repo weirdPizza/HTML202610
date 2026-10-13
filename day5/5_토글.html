@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>Document</title>
+    <style>
+        .light-mode{
+            background-color: white;
+            color: black;
+        }
+        .dark-mode{
+            background-color: #333;
+            color: white;
+        }
+        .light-mode #light{
+            display: none;
+        }
+        .dark-mode #dark{
+            display: none;
+        }
+        #light, #dark{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div>
+        <span onclick="fnMode()" id="light" class="material-symbols-outlined">
+        light_mode
+        </span>
+
+        <span onclick="fnMode()" id="dark" class="material-symbols-outlined">
+        dark_mode
+        </span>
+    </div>
+    <div>
+        <ul>
+            <li>Lorem, ipsum dolor.</li>
+            <li>Lorem, ipsum.</li>
+            <li>Lorem ipsum dolor sit amet consectetur.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
+<script>
+    function fnMode(){
+        let body = document.body;
+        body.classList.toggle("light-mode");
+        body.classList.toggle("dark-mode");
+    }
+</script>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" onclick = "fnTest(event)">
+
+    </div>
+</body>
+</html>
+<script>
+    let box = document.querySelector("#box");
+    function fnTest(e){
+        console.log(e);
+
+    }
+</script>
