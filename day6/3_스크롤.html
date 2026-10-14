@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Snap: Horizontal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 50px;
+      background-color: #2d3436;
+    }
+
+    .carousel-container {
+      display: flex;
+      gap: 20px; 
+      width: 100%;
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 20px 0;
+      
+      overflow-x: scroll; /* 가로 스크롤 활성화 */
+      /* 스크롤바 숨기기 */
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      /* 필수조건은 부모에게 스크롤이 있단 전제, 컨테이너에 scroll-snap-type 걸어주고 */
+    }
+   
+
+
+     .card {
+      
+      flex: 0 0 80%; 
+      height: 300px;
+      background-color: white;
+      border-radius: 16px;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+
+      scroll-snap-align: center;
+      /* 자식요소들에 scroll-snap-align 걸어주면 완성 */
+        
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 앱스토어나 넷플릭스에서 흔히 보는 가로 카드 스와이프 UI -->
+  <div class="carousel-container">
+    <div class="card">카드 1</div>
+    <div class="card">카드 2</div>
+    <div class="card">카드 3</div>
+    <div class="card">카드 4</div>
+  </div>
+</body>
+</html>

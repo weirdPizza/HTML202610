@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- vue 쓰기 위해 얘넬 import 해야 함 -->
+    <style>
+        table,tr,td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div v-if="kind=='read'">
+            <!-- kind가 읽기 모드면 display -->
+            <h3>게시글 목록</h3>
+            <table>
+                <tr>
+                    <th>선택</th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>삭제</th>
+                </tr>
+                <tr v-for="item in list">
+                    <!-- 리스트 변수의 요소 하나하나씩 갖고옴 -->
+                    <td><input type="radio" name="board" v-model="selectItem" :value="item.boardNo"></td>
+                    <td>{{item.boardNo}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.nickName}}</td>
+                    <td><button @click="fnRemove(item.boardNo)">삭제</button></td>
+                </tr>
+            </table>
+            <br>
+            <button @click="fnAddMenu">게시글등록</button>
+            <!-- 버튼 클릭 시 fnAddmenu 함수 실행 -->
+             <!-- addMenu함수는 create 상태로 flg를 바꿔줌 -->
+              <!-- 게시글 등록 시 할당됐던 값들도 초기화시켜줌 -->
+            <button @click="fnUpdateMenu">수정</button>
+        </div>
+        <div v-if="kind == 'create'">
+            <!-- create면 display -->
+            <h3>게시글 등록</h3>
+            <div>
+                제목: <input type="text" v-model="title">
+                <!-- v-model로 값 연동시킴 -->
+            </div>
+            <div>
+                내용: <input type="text" v-model="cotent">
+            </div>
+            <div>
+                닉네임: <input type="text" v-model="nickname">
+            </div>
+            <button @click="fnAddBoard">등록!</button>
+            <button @click="kind='read'">되돌아가기</button>
+            <!-- read모드로 변수값 변경 시킴 -> 자동 이동 -->
+        </div>
+        
+        <div v-if="kind == 'update'">
+            <h3>게시글 수정</h3>
+            <div>
+                제목: <input type="text" v-model="info.title">
+                <!-- v-model로 값 연동시킴 -->
+            </div>
+            <div>
+                내용: <input type="text" v-model="info.contents">
+            </div>
+            <div>
+                닉네임: <input type="text" v-model="info.nickName">
+            </div>
+            <button @click="fnUpdate">수정!</button>
+            <!-- fnupdateboard 만들어줘야함 -->
+            <button @click="kind='read'">되돌아가기</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({ // createApp함수는 인자로 맵을 받음
+        data() {
+            return {
+                // 변수 - (key : value) <맵형태
+                kind: "read",
+                title : "",
+                cotent : "",
+                nickname : "",
+                selectItem : "",
+                info: {},
+                updateIndex: "",
+                list: [
+                    {boardNo : 1, title : "첫번째 게시글", contents : "1등!!", nickName : "길동"},
+                    {boardNo : 2, title : "건강하세요", contents : "좋은하루되세요", nickName : "철수"}
+                ]
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnAddMenu: function () {
+                let self = this;
+                self.kind="create";
+
+                
+                // 초기화
+                self.title="";
+                self.cotent = "";
+                self.nickname = "";
+
+            },
+
+            fnAddBoard : function() {
+                let self = this;
+                // boardNo을 list.length로 정하면 안됨! 문제를 보여주려고 일부러 적은거야.(삭제시 문제)
+
+                let board = {boardNo : self.list.length+1, title : self.title, contents: self.cotent, nickName:self.nickname};
+                self.list.push(board); 
+
+                
+                self.kind = "read";
+                // 데이터 테이블에 넣고 바로 볼 수 있게 페이지 이동시켜줌
+            },
+            fnUpdateMenu: function(){
+                let self = this;
+
+                if(self.selectItem==""){
+                    alert("수정할 게시글을 선택해주세요.");
+                    return;
+                }
+                self.kind = 'update';
+                for(let i=0; i<self.list.length; i++){
+                    if(self.list[i].boardNo ==self.selectItem){
+                        self.info = {...self.list[i]};
+                        // {...객체}는 주소를 공유하지 않고 값만 복사하고 주소는 다른 주소로 생성하게 함(객체 레퍼런스 문제)
+                        self.updateIndex = i;
+                        break;
+                    }
+                }
+                
+            },
+
+            fnRemove : function(boardNo){
+                let self = this;
+                if(!confirm("정말 삭제하시겠습니까?")){
+                    return;
+                }
+                for(let i=0; i<self.list.length; i++){
+                    if(self.list[i].boardNo == boardNo){
+                        self.list.splice(i,1);
+                        // 리스트의 i번째 요소 1개를 삭제하겠다.
+                        break;
+                    }
+                    
+                    
+                }
+                
+            },
+            fnUpdate : function() {
+                let self = this;
+                self.list[self.updateIndex] = self.info;
+                // 수정 체크 초기화
+                self.selectItem = "";
+                self.kind = 'read';
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

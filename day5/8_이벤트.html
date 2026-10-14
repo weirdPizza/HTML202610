@@ -15,11 +15,16 @@
 </html>
 <script>
     let list = document.querySelectorAll(".subject");
-    for(let i=0; i<list.length; i++) {
-        list[i].onclick = function(e){
-            // e.target == this 
-            // console.log(e.target.innerHTML);
-            this.style.color = "blue";
-        };
-    }
+    list.forEach(subList => {
+        subList.addEventListener('click', (event)=> {
+            event.target.style.color = "blue";
+        })
+    })
+    // for(let i=0; i<list.length; i++) {
+    //     list[i].onclick = function(e){
+    //         // e.target == this 
+    //         // console.log(e.target.innerHTML);
+    //         this.style.color = "blue";
+    //     };
+    // }
 </script>

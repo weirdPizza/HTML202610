@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Nesting 가이드</title>
+  <style>
+    /* 
+       CSS 네스팅 구조
+       .nesting-card라는 큰 괄호 안에 모든 관련 스타일을 다 넣습니다!
+     */
+    .nesting-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      width: 300px;
+      transition: 0.3s;
+
+     
+    }
+  </style>
+</head>
+<body>
+
+  <h2>네이티브 CSS 네스팅 (Nesting)</h2>
+  <p style="color:#666; margin-bottom: 30px;">
+    코드를 보시면 HTML 구조와 CSS 구조가 완벽하게 일치하는 것을 볼 수 있습니다.<br>
+    마우스를 카드 위에 올려보시고, 브라우저 창 크기도 모바일처럼 확 줄여보세요!
+  </p>
+  
+  <div class="nesting-card">
+    <div class="title">네스팅 카드 제목</div>
+    <p>부모 클래스 이름을 매번 반복해서 복사 붙여넣기 하던 시대는 끝났습니다. 괄호 안에 괄호를 넣어 깔끔하게 관리하세요!</p>
+    <button>자세히 보기</button>
+  </div>
+
+</body>
+</html>

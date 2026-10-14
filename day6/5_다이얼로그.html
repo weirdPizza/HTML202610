@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        dialog{
+            /* filter: blur(3px); */
+            
+            border:none;
+            border-radius: 8px;
+        }
+        dialog::backdrop {
+            /* ::backdrop 다이얼로그 떴을 때 배경에 대한 속성 */
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+        }
+        details{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="open">다이얼로그 열기</button>
+    <dialog id="myDialog">
+        <h3>다이얼로그!</h3>
+        <p>간단하게 다이얼로그 띄우기~</p>
+        <form method="dialog">
+            <button>닫기</button>
+        </form>
+    </dialog>
+    <hr>
+
+    <details open>
+        <!-- Q&A에서 많이 씀 -->
+        <summary>Q. HTML은 얼마나 재밌나요?</summary>
+        <p>정말 재밌습니다.</p>
+    </details>
+    <hr>
+
+    <picture>
+        <!-- 브라우저 크기마다 이미지 크기 변형 가능한 태그 -->
+         <source media="(max-width:600px)" srcset="../images/squid.jpg">
+         <source media="(max-width:1024px)" srcset="../images/lion.jpg">
+         <img src="../images/bird.jpg" alt="" width="400">
+    </picture>
+
+</body>
+</html>
+<script>
+    let btn = document.querySelector("#open");
+    let dialog = document.querySelector("#myDialog");
+
+    btn.addEventListener("click", function(){
+        dialog.showModal();
+    });
+</script>

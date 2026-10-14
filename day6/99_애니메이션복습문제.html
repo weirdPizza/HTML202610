@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>애니메이션 복습문제</title>
+  <style>
+    /* 기본 레이아웃 */
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      background-color: #121212; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+    }
+
+    .player-card {
+      background-color: #1e1e1e;
+      width: 280px;
+      padding: 40px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* LP판 기본 스타일 */
+    .vinyl-wrapper {
+      margin-bottom: 20px;
+    }
+    .vinyl {
+      display: inline-block; 
+      font-size: 8rem;
+      line-height: 1;
+      margin: 0;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    }
+
+    /* 음악 정보 패널 기본 스타일 */
+    .info-panel {
+      margin-bottom: 30px;
+    }
+    .title { font-size: 1.4rem; font-weight: bold; margin: 0 0 8px 0; }
+    .artist { color: #b3b3b3; margin: 0; font-size: 0.9rem; }
+
+    /* 재생 버튼 기본 스타일 */
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      background-color: #1db954; /* 스포티파이 초록색 */
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* 끊김 없는 무한 회전 (LP판) 
+       - 100%일 때 360도 회전하는 spin 키프레임 생성
+       - .vinyl에 3초(3s), 일정한 속도(linear), 무한반복 적용 */
+    @keyframes spin {
+      /* 여기에 키프레임 작성 (0%는 생략 가능) */
+        /* 0%{
+            rotate: 0deg;
+        } */
+        100%{
+            rotate: 360deg;
+        }
+    }
+
+    .vinyl {
+      /* 여기에 animation 적용 */
+        animation: spin 3s linear infinite;
+    }
+
+
+    /* 스르륵 올라오는 곡 정보 (트랜지션)
+       - .info-panel : 평소엔 투명도 0, 아래로 30px 이동한 상태. opacity와 transform에 0.4s ease 트랜지션 적용
+       - .player-card:hover .info-panel : 마우스를 올리면 투명도 1, 원래 위치(0)로 이동 */
+    .info-panel {
+      /* 여기에 초기 상태(opacity, transform)와 transition 작성 */
+        margin-bottom: 30px;
+        /* margin-bottom 왜 주는거지??????? 
+        transform은 시각적으로만 움직임. 따라서 margin값으로 실제 요소도 움직여 줘야 함! */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+
+    }
+
+    .player-card:hover .info-panel {
+      /* 여기에 호버 시 상태(opacity, transform) 작성 */
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+
+    /* Pulse 빛 퍼짐 효과와 호버 제어 (애니메이션 + 트랜지션)
+       - @keyframes pulse : 0%일 땐 그림자 크기 0(진한 초록), 100%일 땐 반경 20px로 커지며 투명해짐
+       - .play-btn : 무한 반복되는 pulse 애니메이션(1.5s) 연결 + 크기 확대를 위한 transition(0.2s) 적용
+       - .play-btn:hover : 버튼 크기 1.15배 확대 + 애니메이션 일시정지 */
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.7); }
+      100% { box-shadow: 0 0 0 20px rgba(29, 185, 84, 0); }
+    }
+
+    .play-btn {
+      /* 여기에 animation과 transition 작성 */
+        animation : pulse 1.5s ease infinite;
+        transition: transform 0.2s ease;
+    }
+
+    .play-btn:hover {
+      /* 여기에 transform(확대)과 애니메이션 멈춤 작성 */
+        animation-play-state: paused;
+        transform: scale(1.15);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="player-card">
+    <div class="vinyl-wrapper">
+      <div class="vinyl">💿</div>
+    </div>
+    
+    <div class="info-panel">
+      <h3 class="title">좋은노래</h3>
+      <p class="artist">좋은가수</p>
+    </div>
+
+    <a href="#" class="play-btn">▶</a>
+  </div>
+
+</body>
+</html>
