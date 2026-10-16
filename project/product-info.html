@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- vue 쓰기 위해 얘넬 import 해야 함 -->
+    <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+        background-color: #eee;
+    }
+    #container{
+      margin: 30px auto;
+      width: 800px;
+      height: auto;
+      background-color: white;
+      padding: 24px 40px;
+      border-radius: 8px;
+    }
+
+    hr{
+        margin: 20px 0;
+        border-color: black;
+    }
+    .image{
+        width: 50%;
+        float: left;
+
+    }
+    img{cursor: pointer;}
+    #container .image div:first-child{
+        width: 100%;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+    #container .image div:first-child img{
+        width: 300px;
+    }
+    #container .image .subImage{
+        width: 100%;
+        height: 120px;
+        padding: 0 40px; 
+    }   
+    #container .image .subImage img {
+        width: 100px;
+        height: 120px;
+        float:left;
+        
+    }
+    #container  .subImage img:not(.subImage img:last-child){
+        margin-right: 12px;
+    }
+    #container .image div img{
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .product-info{
+        float: left;
+        width: 50%;
+    }
+    #container::after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .product-info > div{
+        font-size: 16px;
+        margin: 28px 0;
+        font-weight: bold;
+    }
+    button{
+        background-color: cornflowerblue;
+        width: 100%;
+        border:none;
+        padding: 12px;
+        color: white;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover{
+        background-color: rgb(73, 112, 186);
+    }
+    .redText {
+        color: red;
+    }
+    .blueText{
+        color : blue;
+    }
+    .sub{
+        font-size: 12px;
+        margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div id="container">
+            <h1>갤럭시</h1>
+            <hr>
+            <div class="image">
+                <div>
+                    <img :src="info.PATH" alt="" class="product-img">
+                </div>
+                <div class="subImage">
+                    <img :src="item.PATH" alt="" class="product-img"  v-for="item in imgList" @click="fnImgMotion(item.PATH)">
+                </div>
+            </div>
+            <div class="product-info">
+                <div>상품명 : {{info.PRODUCT_NAME}}</div>
+                <div class="redText">판매가 : {{info.PRICE}}원</div>
+                <div>
+                    배송비 : 30,000원
+                    <div class="redText sub">(10,000,000원 이상 주문 시 무료)</div>
+                </div>
+                <div class="blueText">적립금 : {{Math.round(info.PRICE * 0.01)}}원(1%)</div>
+                <div>브랜드 : {{info.BRAND}}</div>
+                <div>설명 : {{info.DESCRIPTION}}</div>
+                <button>구매하기</button>
+            </div>
+        </div>
+    
+    
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({ // createApp함수는 인자로 맵을 받음
+        data() {
+            return {
+                // 변수 - (key : value) <맵형태
+                productId : "",
+                imgList : [],
+                info: {}
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetProduct: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3000/product/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: {productId :self.productId},
+                    success: function (data) {
+                        console.log(data);
+                        self.imgList = data.imgList;
+                        self.info = data.info;
+                    }
+                });
+            },
+            fnImgMotion : function(imgPath) {
+                let self = this;
+                self.info.PATH = imgPath;
+            },
+            fnImgMotion2 : function(){
+                let self = this;
+                
+                setInterval(function(){
+                    for(let i=0; i<self.imgList.length; i++){
+                        self.info.PATH = self.imgList[i].PATH;
+                    }
+                },1000)
+            }
+
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            const queryParams = new URLSearchParams(window.location.search);
+            this.productId = queryParams.get('productId') || '';
+            console.log(self.productId);
+            if (this.productId == '') {
+                alert("해당 상품 없다!!");
+                location.href = "product-home.html";
+            }
+            this.fnGetProduct();
+            
+        }
+    });
+
+    app.mount('#app');
+</script>

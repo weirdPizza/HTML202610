@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- vue 쓰기 위해 얘넬 import 해야 함 -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            border:none;
+        }
+        body{
+            background-color: #eee;
+        }
+        #container {
+            margin: 70px auto;
+            width: 420px;
+            background-color: white;
+            box-shadow: 2px 2px 10px #ccc;
+            padding: 40px;
+            border-radius: 8px;
+        }
+        .loginTitle > * {
+            text-align: center;
+        }
+        .loginTitle h1{
+            margin: 40px 0 10px 0;
+        }
+        .loginTitle p{
+            color: #a2a2a2;
+            margin-bottom: 50px;
+        }
+
+        .loginInput {
+            margin-bottom: 40px;
+        }
+        .loginInput label h4{
+            margin-bottom: 10px;
+        }
+        .loginInput label input{
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        div button {
+            width: 100%;
+            background-color: cornflowerblue;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+
+        .loginSub, .loginSub > *{
+            color: #a2a2a2;
+        }
+        .loginSub a:hover{
+            text-decoration: underline;
+        }
+        .loginSub{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div id="container">
+            <div class="loginTitle">
+                <h1>환영합니다</h1>
+                <p>서비스 이용을 위해 로그인해주세요.</p>
+            </div>
+            <div class="loginInput">
+                <label>
+                    <h4>아이디</h4>
+                    <input type="text" placeholder="아이디를 입력해주세요." v-model="userId">
+                </label>
+            </div>
+            <div class="loginInput">
+                <label>
+                    <h4>비밀번호</h4>
+                    <input type="password" placeholder="비밀번호를 입력해주세요." v-model="pwd">
+                </label>
+            </div>
+            <div>
+                <button @click="fnTest">로그인</button>
+            </div>
+            <div class="loginSub">
+                <a href="javascript:;">비밀번호 찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="javascript:;">회원가입</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({ // createApp함수는 인자로 맵을 받음
+        data() {
+            return {
+                // 변수 - (key : value) <맵형태
+                userId : "",
+                pwd: "",
+                
+
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnTest: function () {
+                let self = this;
+                let param = {
+                    userId: self.userId,
+                    pwd : self.pwd
+                }
+                $.ajax({
+                    url: "http://192.168.30.57:3000/user/login",
+                    dataType: "json",
+                    type: "GET", // 원래대로라면 POST (GET은 보안 신경 안쓰는 애)
+                    data: param,
+                    // data: {userId : self.userId, pwd:self.pwd},
+                    success: function (data) {
+                        console.log(data);
+                        if(data.message=="success"){
+                            alert(data.info.userName + "님 환영합니다.");
+                            localStorage.setItem("sessionId", data.info.userId);
+                            localStorage.setItem("sessionName", data.info.userName);
+                            
+                            location.href="product-home.html";
+                        }else{
+                            alert("아이디 및 비밀번호 확인해주세요.");
+                        }
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

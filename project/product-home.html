@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인페이지</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<div id="app">
+  <div class="dashboard-container">
+
+    <div class="box header">
+      <div class="header-logo">
+        <img src="logo.png" class="logo-image">
+      </div>
+
+      <div class="header-search">
+        <input type="text" placeholder="검색어를 입력하세요...">
+        <button type="button" class="search-btn">검색</button>
+      </div>
+
+      <div class="header-utils">
+        <button class="notification-btn">
+          🔔
+          <span class="badge">3</span>
+        </button>
+        <div class="user-profile">
+          <div class="avatar">👨‍💻</div>
+          <a href="mypage.html" style="text-decoration: none;"><span class="username">{{sessionName}}</span></a>
+          <a @click="fnLogout" style="background-color: #797272; padding : 5px; border-radius: 5px;">로그아웃</a>
+        </div>
+        
+      </div>
+    </div>
+   
+    <div class="box side">
+      <div class="side-title">카테고리</div>
+      <ul class="category-list">
+        <li><a href="#" class="active">전체 상품</a></li>
+        <li><a href="#">스마트폰</a></li>
+        <li><a href="#">게임기</a></li>
+        <li><a href="#">노트북</a></li>
+        <li><a href="#">기타</a></li>
+      </ul>
+
+      <div class="side-title">가격대</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> 1만원 이하</label></li>
+        <li><label><input type="checkbox"> 1만원 ~ 3만원</label></li>
+        <li><label><input type="checkbox"> 3만원 ~ 5만원</label></li>
+        <li><label><input type="checkbox"> 5만원 이상</label></li>
+      </ul>
+    </div>
+
+    <div class="box content">
+      <div class="product-card" v-for="item in list" @click="fnView(item.PRODUCT_ID)">
+        <img :src="item.PATH" alt="상품 1" class="product-img">
+        <div class="product-info">
+          <div class="product-name">{{item.PRODUCT_NAME}}</div>
+          <div class="product-price">{{item.PRICE}}원</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="box footer">하단 영역~~</div>
+  </div>
+</div>
+</body>
+
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                sessionName : "",
+                list : []
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetProduct : function () {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3000/product",
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                      console.log(data);
+                      self.list = data.list;
+                    }
+                });
+            },
+            fnLogout : function(){
+              if(!confirm("정말 로그아웃??")){
+                return;
+              }
+              console.log("삭제 전 ==> ", localStorage.getItem("sessionId"));
+              localStorage.clear();
+              console.log("삭제 후 ==> ", localStorage.getItem("sessionId"));
+              location.href = "Login.html";
+            },
+            fnInit: function() {
+                const swiper = new Swiper('.swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 2500,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            },
+            fnView : function(productId) {
+              location.href="product-info.html?productId="+productId;
+              //product-info.html?productId=3
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            self.fnInit();
+            console.log(localStorage.getItem("sessionId"));
+            if(localStorage.getItem("sessionId") == null){
+              alert("로그인 후 이용해주세요.");
+              location.href = "Login.html";
+            }
+            self.sessionName = localStorage.getItem("sessionName");
+            self.fnGetProduct();
+        }
+    });
+
+    app.mount('#app');
+</script>

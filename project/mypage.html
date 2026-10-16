@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 화면 중앙 정렬 및 배경색 */
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; 
+        }
+
+        /* 컨테이너 */
+        #app {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 45px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        #container h2 {
+            color: #333333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        #container p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* 입력 필드 영역 */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group span {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #4A90E2;
+        }
+
+        .input-group input[type='radio'] {
+            width: 5%;
+            padding: 3px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+        /* 버튼 */
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .signup-btn-false {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .signup-btn:hover {
+            background-color: #357ABD;
+        }
+
+           .bottom-links {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .bottom-links a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        .input-group button{
+            margin-left : 10px;
+        }
+        .warning-area {
+            height: 18px;
+        }
+        .input-group .warning-txt {
+            color: red;
+            font-size: 12px;
+            margin : 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <h2>마이페이지</h2>
+            <p>정보 수정하셈</p>
+            
+            <div class="input-group">
+                <span>이름</span>
+                <input type="text" value="" v-model="info.USERNAME">
+            </div>
+
+            <div class="input-group">
+                <span>아이디</span>
+                <input disabled class="userId" type="text" placeholder="아이디를 입력해주세요." v-model="userId">                
+            </div>
+            <div class="input-group">
+                <span>이메일</span>
+                <input type="text" placeholder="이메일을 입력해주세요." v-model="info.EMAIL">                
+            </div>
+            <div class="input-group">
+                <span>성별</span>
+                <label><input name="gender" type="radio" v-model="info.GENDER" value="M"> 남자</label>
+                <label><input name="gender" type="radio" v-model="info.GENDER" value="F"> 여자</label>
+            </div>
+
+            <button class="signup-btn">수정하기</button> 
+            
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                info : {},
+                userId: ""
+                // userName:"",
+                // email:"",
+                // gender: ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetUser: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3000/user/info",
+                    dataType: "json",
+                    type: "GET", // 원래대로라면 POST (GET은 보안 신경 안쓰는 애)
+                    data: {userId : self.userId},
+                    // data: {userId : self.userId, pwd:self.pwd},
+                    success: function (data) {
+                        console.log(data);
+                        // self.userId = data.info.USERID;
+                        // self.userName = data.info.USERNAME;
+                        // self.email = data.info.EMAIL;
+                        // self.gender = data.info.GENDER;
+                        self.info = data.info;
+                    }
+                });
+            },
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            if(localStorage.getItem("sessionId")==null){
+                alert("로그인 후 이용해주세요.")
+                location.href="login.html";
+            }
+            
+            self.userId = localStorage.getItem("sessionId");
+            self.fnGetUser();
+        }
+    });
+
+    app.mount('#app');
+</script>
