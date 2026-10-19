@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+    function test1(){
+        return ()=>{
+            alert("test1");
+            // 함수를 반환했으니까(또 다른 함수인거임)
+            // 함수 안에 함수 형태
+        }
+    }
+
+    setTimeout(test1(), 3000);
+    // 이러면 ()괄호 써도 됨.
+    // test1 즉시 실행
+    // 그 안 return 함수는 3초있다가 
+
+
+</script>

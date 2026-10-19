@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function test1(){
+        console.log("안녕");
+    }
+    // js에서는 변수에 함수(function)을 담을 수 있다. 
+
+    let test2 = function(){
+        console.log("test2");
+    }
+
+    // 화살표 함수(arrow function) ( '=>' )
+    let test3 = ()=>{
+        console.log("test3");
+    }
+
+    // 실행내용이 한 줄일 때는 중괄호 생략이 가능
+    let test4 = ()=> console.log("test4");
+
+    let test5 = (x) => console.log(x);
+
+    // test1();
+    // test2();
+    // test3();
+    // test4();
+    // test5("test5");
+
+    // 화면 실행 후 5초 뒤에 콘솔창에 'test6' 출력
+    // 함수는 화살표 함수로 구현
+    setTimeout(()=>{
+        console.log("test6");
+    }, 5000);
+
+
+</script>

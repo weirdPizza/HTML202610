@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function test1(cb) {
+        $.ajax({
+            url: "http://192.168.30.57:3000/student",
+            dataType: "json",
+            type: "GET",
+            data: {}, 
+            success: function (data) {
+                console.log(data);
+                cb();
+                // success하면 test3를 실행하도록 하면 순서를 맞춰줄 수 있음.
+            }
+        });
+    }
+    // ajax도 비동기 통신<<중요
+
+    let test2 = function(){
+        console.log("test2");
+    }
+
+    let test3 = ()=>{
+        console.log("test3");
+    }
+
+    // test2();
+    // test1();
+    // test3();
+    // 서버에서 데이터 갖고 오는 test1()은 마지막에 처리됨. 좀 시간이 걸림.
+    // 근데 난 무조건 test1() 끝난 후에 test3()가 실행되면 좋겠어. (순서 정해져 있음:콜백함수)
+    test2();
+    test1(test3);
+    // test3();
+
+</script>
