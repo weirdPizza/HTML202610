@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        table, tr, td, th{
+            border : 2px solid black;
+            border-collapse: collapse;
+            padding : 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div>학번 : {{info.STU_NO}}</div>
+        <div>이름 : {{info.STU_NAME}}</div>
+        <div>학과 : {{info.STU_DEPT}}</div>
+        <div>학년 : {{info.STU_GRADE}}</div>
+        <div>성별 : {{info.STU_GENDER}}</div>
+        <hr>
+        <h3>성적(평균점수 기준)</h3>
+        <div>전체 순위 : {{info.ALL_RANK}}</div>
+        <div>학과내 순위 : {{info.DEPT_RANK}}</div>
+        <div>
+            <button @click="fnEdit">수정</button>
+            <button @click="fnRemove">삭제</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                stuNo : "",
+                info : {}
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetInfo : function(){
+                let self = this;
+                $.ajax({
+                    url: "http://localhost:3000/search",
+                    dataType: "json",
+                    type: "GET",
+                    data: {stuNo : self.stuNo},
+                    success: function (data) {
+                        console.log(data);
+                        self.info = data.info;
+                    }
+                });
+            },
+            fnEdit : function(){
+                let self = this;
+                location.href = `student-edit.html?stuNo=${self.info.STU_NO}`;
+            },
+            fnRemove : function(){
+                let self = this;
+                if(!confirm("정말 삭제??")){
+                    return;
+                }
+
+                $.ajax({
+                    url: "http://localhost:3000/delete",
+                    dataType: "json",
+                    type: "GET",
+                    data: {stuNo : self.info.STU_NO},
+                    success: function (data) {
+                        console.log(data);
+                        alert("삭제되었습니다!");
+                        location.href = "student-list.html";
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            const queryParams = new URLSearchParams(window.location.search);
+            self.stuNo = queryParams.get('stuNo') || ''; 
+            console.log(self.stuNo);
+            self.fnGetInfo();
+        }
+    });
+
+    app.mount('#app');
+</script>

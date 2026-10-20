@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- vue 쓰기 위해 얘넬 import 해야 함 -->
+    <style>
+        table,tr,td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div>
+            <div>학번 : <input type="text" v-model="stuNo" :disabled="check" >
+                <button @click="fnCheck">중복체크</button>
+            </div>
+            <div>이름 : <input type="text" v-model="stuName"></div>
+            <div>학과 : <input type="text" v-model="stuDept"></div>
+            <div>
+                <!-- <button @click = "fnAdd" disabled v-if="!check">추가</button>
+                <button @click = "fnAdd" v-else>추가</button> -->
+                <button :disabled="!check" @click="fnAdd">추가</button>
+            <div>
+            <a href="student-list.html"><button>되돌아가기</button></a></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({ // createApp함수는 인자로 맵을 받음
+        data() {
+            return {
+                // 변수 - (key : value) <맵형태
+                check: false,
+                stuNo : "",
+                stuName : "",
+                stuDept : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnCheck: function() {
+                let self = this;
+                if(self.stuNo.length != 8){
+                    alert("학번은 8글자 입니다.");
+                    return;
+                }
+                let reg = /\d{8}/;
+                if(!reg.test(self.stuNo)){
+                    alert("학번은 숫자만 입력해주세요.");
+                    return;
+                }
+                $.ajax({
+                    url: "http://localhost:3000/search",
+                    dataType: "json",
+                    type: "GET",
+                    data: {stuNo :self.stuNo},
+                    success: function (data) {
+                        console.log(data.info);
+                        // null인지 undefined인지 모를 땐 이렇게 찍어봐 콘솔에!
+                        // 아니면 아래처럼 or로 2개 다 처리해버려.
+                        if(data.info != undefined || data.info != null){
+                            // 존재하는 학번
+                            alert("존재하는 학번입니다. 새로운 학번을 입력해주세요.");
+                            // 초기화
+                            self.stuNo = "";
+                        }else{
+                            alert("사용 가능한 학번입니다!");
+                            self.check=true;
+                        }
+                        
+                    }
+                });
+            },
+            fnAdd: function () {
+                let self = this;
+                let param = {
+                    stuNo : self.stuNo,
+                    name : self.stuName,
+                    dept : self.stuDept
+                }
+                $.ajax({
+                    url: "http://localhost:3000/insert",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        alert(data.result);
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

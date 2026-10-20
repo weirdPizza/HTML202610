@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- vue 쓰기 위해 얘넬 import 해야 함 -->
+    <style>
+        table,tr,td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div>
+            <div>학번 : <input type="text" v-model="stuNo" disabled></div>
+            <div>이름 : <input type="text" v-model="stuName"></div>
+            <div>학과 : <input type="text" v-model="stuDept"></div>
+            <div><button @click = "fnEdit">수정</button>
+            <button @click="fnBack">되돌아가기</button></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({ // createApp함수는 인자로 맵을 받음
+        data() {
+            return {
+                // 변수 - (key : value) <맵형태
+                stuNo : "",
+                stuName : "",
+                stuDept : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetInfo : function(){
+                let self = this;
+                $.ajax({
+                    url: "http://localhost:3000/search",
+                    dataType: "json",
+                    type: "GET",
+                    data: {stuNo : self.stuNo},
+                    success: function (data) {
+                        console.log(data);
+                        self.stuName = data.info.STU_NAME;
+                        self.stuDept = data.info.STU_DEPT;
+                    }
+                });
+            },
+            fnEdit: function () {
+                let self = this;
+                let param = {
+                    stuNo : self.stuNo,
+                    name : self.stuName,
+                    dept : self.stuDept
+                    
+                }
+                $.ajax({
+                    url: "http://localhost:3000/update",
+                    dataType: "json",
+                    type: "GET",
+                    data: param,
+                    success: function (data) {
+                        alert("수정되었습니다.");
+                        location.href = "student-list.html";
+                    }
+                });
+            },
+            fnBack : function() {
+                location.href = "student-list.html";
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            const queryParams = new URLSearchParams(window.location.search);
+            self.stuNo = queryParams.get('stuNo') || '';
+            if(self.stuNo == ""){
+                // 내가 짬. 정확하지 않으니 이전 코드를 참고할 것.
+                alert("잘못된 접근입니다.")
+                location.href = "student-list.html";
+            }
+            self.fnGetInfo();
+        }
+    });
+
+    app.mount('#app');
+</script>
